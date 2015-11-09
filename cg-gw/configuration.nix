@@ -10,6 +10,11 @@
     enable = true;
     version = 2;
     device = "/dev/vda";
+
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
   };
 
   networking = {
@@ -17,14 +22,15 @@
     domain = "lan";
 
     interfaces = { 
-      eth0.ip4 = [ { address = "10.0.0.5"; prefixLength = 24; } ]; 
+      eth0.ip4 = [ { address = "10.0.0.13"; prefixLength = 8; } ];
+      eth1.ip4 = [ { address = "10.0.0.5"; prefixLength = 8; } ];
     };
 
-    nameservers = [ "10.0.0.1" ];
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
     defaultGateway = "10.0.0.1";
 
     firewall = {
-      enable = true;
+      enable = false;
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
@@ -46,11 +52,56 @@
     vim
     htop
     wget
+    unzip
+    mailutils
   ];
 
   services.postfix.enable = true;
   services.fail2ban.enable = true;
   services.xserver.enable = false;
+
+  services.openvpn = {
+    enable = true;
+    servers = {
+      cyberghost = {
+        config = ''
+          client
+          remote 8-ro.cg-dialup.net 80
+          dev tun0
+          proto tcp
+          auth-user-pass /root/.vpn/user.txt
+
+          resolv-retry infinite
+          redirect-gateway def1
+          persist-key
+          persist-tun
+          nobind
+          cipher AES-256-CBC
+          auth MD5
+          ping 15
+          ping-exit 90
+          ping-timer-rem
+          script-security 2
+          remote-cert-tls server
+          route-delay 5
+          verb 4
+          comp-lzo
+
+          ca /root/.vpn/ca.crt
+          cert /root/.vpn/client.crt
+          key /root/.vpn/client.key
+        '';
+        up = ''
+          iptables -A FORWARD -s 10.0.0.0/8 -i eth1 -o eth0 -m conntrack --ctstate NEW -j REJECT
+          iptables -A FORWARD -s 10.0.0.0/8 -i eth1 -o tun0 -m conntrack --ctstate NEW -j ACCEPT
+          iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+          echo nameserver $nameserver | ${pkgs.openresolv}/sbin/resolvconf -m 0 -a $dev
+        '';
+        down = "${pkgs.openresolv}/sbin/resolvconf -d $dev";
+        autoStart = true;
+      };
+    };
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
