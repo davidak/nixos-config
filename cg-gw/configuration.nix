@@ -10,7 +10,6 @@
     enable = true;
     version = 2;
     device = "/dev/vda";
-
   };
 
   boot.kernel.sysctl = {
@@ -21,12 +20,12 @@
     hostName = "cg-gw";
     domain = "lan";
 
-    interfaces = { 
+    interfaces = {
       eth0.ip4 = [ { address = "10.0.0.13"; prefixLength = 8; } ];
       eth1.ip4 = [ { address = "10.0.0.5"; prefixLength = 8; } ];
     };
 
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "8.8.8.8" "8.8.4.4" "10.0.0.1" ];
     defaultGateway = "10.0.0.1";
 
     firewall = {
@@ -66,7 +65,7 @@
       cyberghost = {
         config = ''
           client
-          remote 8-ro.cg-dialup.net 80
+          remote 8-ro.cg-dialup.net 443
           dev tun0
           proto tcp
           auth-user-pass /root/.vpn/user.txt
