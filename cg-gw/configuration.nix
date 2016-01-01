@@ -25,7 +25,7 @@
       eth1.ip4 = [ { address = "10.0.0.5"; prefixLength = 8; } ];
     };
 
-    nameservers = [ "8.8.8.8" "8.8.4.4" "10.0.0.1" ];
+    nameservers = [ "10.0.0.1" ];
     defaultGateway = "10.0.0.1";
 
     firewall = {
