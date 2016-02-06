@@ -2,8 +2,10 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      /etc/nixos/hardware-configuration.nix
+      ../service/fail2ban.nix
+      ../service/postfix.nix
     ];
 
   boot.loader.grub = {
@@ -16,8 +18,9 @@
     # hostname from mnemonic encoding word list
     # http://web.archive.org/web/20091003023412/http://tothink.com/mnemonic/wordlist.txt
     # you could also consider one of these lists https://namingschemes.com/
-    hostName = "binary";
-    domain = "lan";
+    hostName = "ip4d152ad6";
+    domain = "dynamic.kabel-deutschland.de";
+    search = [ "${config.networking.domain}" ];
 
     interfaces = { 
       eth0.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ]; 
@@ -49,10 +52,9 @@
     vim
     htop
     wget
+    mailutils
   ];
 
-  services.postfix.enable = true;
-  services.fail2ban.enable = true;
   services.xserver.enable = false;
 
   # Enable the OpenSSH daemon.
