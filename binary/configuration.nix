@@ -57,6 +57,22 @@
 
   services.xserver.enable = false;
 
+  # MariaDB
+  services.mysql = {
+    enable = true;
+    dataDir = "/var/mysql" ;
+    package = pkgs.mariadb ;
+    port = 3306;
+  };
+
+  services.mysqlBackup = { 
+    enable = true;
+    databases = [ ];
+    location = "/var/backup/mysql";
+    period = "0 4 * * *";
+    singleTransaction = true;
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "yes";
