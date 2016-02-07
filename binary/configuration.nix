@@ -60,6 +60,13 @@
   # MariaDB
   services.mysql = {
     enable = true;
+    initialDatabases = [
+      { name = "baikal"; schema = ./baikal.sql; }
+      { name = "personen"; schema = ./personen.sql; }
+      { name = "piwik"; schema = ./piwik.sql; }
+      { name = "satzgenerator"; schema = ./satzgenerator.sql; }
+      { name = "blog"; schema = ./blog.sql; }
+    ];
     dataDir = "/var/mysql" ;
     package = pkgs.mariadb ;
     port = 3306;
@@ -77,6 +84,7 @@
   users.extraUsers = lib.genAttrs [
     "aquaregia"
     "aww"
+    "blog"
     "brennblatt"
     "davidak"
     "meinsack"
