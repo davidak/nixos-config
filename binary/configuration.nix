@@ -33,7 +33,7 @@
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [ 8384 ];
       allowedUDPPorts = [];
     };
 
@@ -97,6 +97,16 @@
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
   system.activationScripts.webspace = "for dir in /var/www/*; do mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
+
+  users.users.syncthing = {
+    isNormalUser = true;
+  };
+
+  services.syncthing = {
+    enable = true;
+    user = "syncthing";
+    dataDir = "/home/syncthing";
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
