@@ -1,9 +1,12 @@
 { config, pkgs, ... }:
 
+let
+  credentials = import ./credentials.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   boot.loader.grub = {
@@ -16,7 +19,7 @@
     hostName = "transmission";
     domain = "lan";
 
-    interfaces = { 
+    interfaces = {
       eth0.ip4 = [ { address = "10.0.0.16"; prefixLength = 8; } ]; 
     };
 
@@ -66,8 +69,8 @@
       rpc-whitelist-enabled = true;
       rpc-whitelist = "10.*";
       rpc-enabled = true;
-      rpc-username = "davidak";
-      rpc-password = "{af2d8c743050f4e563046b35d79558ebb87e8f28Cc/6TW8U";
+      rpc-username = credentials.transmission-user;
+      rpc-password = credentials.transmission-password;
       download-dir = "/var/lib/transmission/downloads/";
       incomplete-dir = "/var/lib/transmission/.incomplete/";
       incomplete-dir-enabled = true;
