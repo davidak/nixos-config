@@ -57,6 +57,7 @@
     tree
   ];
 
+  # import additional packages
   nixpkgs.config =
   {
     packageOverrides = pkgs: rec
@@ -155,13 +156,16 @@
       server {
         listen  80;
         server_name aquaregia.de;
-
+      
         location / {
-          root ${pkgs.webseite-aquaregia}/;
+          root ${pkgs.webseite-aquaregia};
           index index.html;
         }
-
+      
       }
+
+
+      include /etc/nginx/conf.d/*;
     '';
   };
 
