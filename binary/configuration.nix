@@ -33,7 +33,7 @@
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 8384 ];
+      allowedTCPPorts = [ 80 443 8384 3306 ];
       allowedUDPPorts = [];
     };
 
@@ -74,7 +74,7 @@
 
   services.mysqlBackup = { 
     enable = true;
-    databases = [ ];
+    databases = [ "satzgenerator" ];
     location = "/var/backup/mysql";
     period = "0 4 * * *";
     singleTransaction = true;
@@ -88,6 +88,7 @@
     "brennblatt"
     "davidak"
     "meinsack"
+    "personen"
     "piwik"
     "satzgenerator"
   ] (user:  {
@@ -97,6 +98,41 @@
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
   system.activationScripts.webspace = "for dir in /var/www/*; do mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
+
+  services.nginx = {
+    enable = true;
+    config = ''
+      worker_processes  2;
+
+      events {
+        worker_connections  1024;
+      }
+    '';
+    httpConfig = ''
+      default_type  application/octet-stream;
+
+      sendfile        on;
+      keepalive_timeout  65;
+
+      #gzip  on;
+
+      server {
+        listen  80;
+        server_name _;
+
+        location / {
+          root ${pkgs.nginx}/html;
+          index index.html;
+        }
+
+        error_page  500 502 503 504 /50x.html;
+        location = /50x.html {
+          root   ${pkgs.nginx}/html;
+        }
+
+      }
+    '';
+  };
 
   users.users.syncthing = {
     isNormalUser = true;
