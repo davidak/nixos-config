@@ -114,7 +114,14 @@
       sendfile        on;
       keepalive_timeout  65;
 
-      #gzip  on;
+      gzip              on;
+      gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+      gzip_buffers      16 8k;
+      gzip_comp_level   4;
+      gzip_http_version 1.0;
+      gzip_min_length   1000;
+      gzip_types        text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon image/bmp;
+      gzip_vary         on;
 
       server {
         listen  80;
