@@ -55,6 +55,7 @@
     wget
     mailutils
     tree
+    (callPackage ./webseite-aquaregia.nix {})
   ];
 
   # MariaDB
