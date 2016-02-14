@@ -55,8 +55,15 @@
     wget
     mailutils
     tree
-    (callPackage ./webseite-aquaregia.nix {})
   ];
+
+  nixpkgs.config =
+  {
+    packageOverrides = pkgs: rec
+    {
+      webseite-aquaregia = pkgs.callPackage ./webseite-aquaregia.nix { };
+    };
+  };
 
   # MariaDB
   services.mysql = {
@@ -83,7 +90,6 @@
 
   users.mutableUsers = false;
   users.extraUsers = lib.genAttrs [
-    "aquaregia"
     "aww"
     "blog"
     "brennblatt"
@@ -136,6 +142,23 @@
         error_page  500 502 503 504 /50x.html;
         location = /50x.html {
           root   ${pkgs.nginx}/html;
+        }
+
+      }
+
+      # AquaRegia Band
+      server {
+        listen  80;
+        server_name www.aquaregia.de;
+        return 301 http://aquaregia.de$request_uri;
+      }
+      server {
+        listen  80;
+        server_name aquaregia.de;
+
+        location / {
+          root ${pkgs.webseite-aquaregia}/;
+          index index.html;
         }
 
       }
