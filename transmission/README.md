@@ -1,5 +1,5 @@
-NixOS Configuration for a Transmission Bittorrent Seedbox
-=========================================================
+NixOS Configuration for a Transmission Seedbox
+==============================================
 
 Hardware
 --------

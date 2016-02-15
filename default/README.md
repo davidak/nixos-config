@@ -1,0 +1,2 @@
+NixOS Server Configuration Template
+===================================
