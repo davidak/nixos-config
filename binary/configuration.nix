@@ -7,6 +7,7 @@
       ../service/fail2ban.nix
       ../service/postfix.nix
       ../service/ntp.nix
+      ../service/vim.nix
     ];
 
   boot.loader.grub = {
@@ -50,7 +51,6 @@
 
   # System Packages
   environment.systemPackages = with pkgs; [
-    vim
     htop
     wget
     mailutils
