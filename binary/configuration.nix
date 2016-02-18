@@ -106,6 +106,7 @@
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
   system.activationScripts.webspace = "for dir in /var/www/*; do mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
+  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
 
   services.nginx = {
     enable = true;
