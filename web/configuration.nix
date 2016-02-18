@@ -147,18 +147,32 @@ in
         error_log /var/www/wiki/log/error.log;
 
         root /var/www/wiki/web;
-        index index.php;
+        index doku.php;
+
+        # Maximum file upload size - change accordingly if needed   
+        client_max_body_size 128M;
+        client_body_buffer_size 128k;
+
+        #Remember to comment the below out when you're installing, and uncomment it when done.
+        location ~ /(data/|conf/|bin/|inc/|install.php) { deny all; }
+
+        location / { try_files $uri $uri/ @dokuwiki; }
+
+        location @dokuwiki {
+            rewrite ^/_media/(.*) /lib/exe/fetch.php?media=$1 last;
+            rewrite ^/_detail/(.*) /lib/exe/detail.php?media=$1 last;
+            rewrite ^/_export/([^/]+)/(.*) /doku.php?do=export_$1&id=$2 last;
+            rewrite ^/(.*) /doku.php?id=$1&$args last;
+        }
       
         location ~ \.php$ {
+            try_files $uri $uri/ /doku.php;
             include ${pkgs.nginx}/conf/fastcgi_params;
-            try_files $uri =404;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param REDIRECT_STATUS 200;
             fastcgi_pass unix:/run/phpfpm/wiki.sock;
-            fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
         }
       }
-
-      include /etc/nginx/conf.d/*;
     '';
   };
 
