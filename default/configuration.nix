@@ -2,8 +2,12 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      /etc/nixos/hardware-configuration.nix
+      ../service/fail2ban.nix
+      ../service/postfix.nix
+      ../service/ntp.nix
+      ../service/vim.nix
     ];
 
   boot.loader.grub = {
@@ -43,14 +47,12 @@
 
   # System Packages
   environment.systemPackages = with pkgs; [
-    vim
     htop
     wget
+    tree
+    mailutils
+    git
   ];
-
-  services.postfix.enable = true;
-  services.fail2ban.enable = true;
-  services.xserver.enable = false;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
