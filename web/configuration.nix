@@ -95,6 +95,17 @@ in
     php_admin_value[date.timezone] = "Europe/Berlin"
     php_admin_value[memory_limit] = 256M
     php_admin_value[max_execution_time] = 60
+
+    # opcache module not compiled :/
+    php_admin_value[opcache.enable] = 1
+    php_admin_value[opcache.memory_consumption] = 128
+    php_admin_value[opcache.interned_strings_buffer] = 16
+    php_admin_value[opcache.max_accelerated_files] = 50000
+    php_admin_value[opcache.max_wasted_percentage] = 5
+    php_admin_value[opcache.use_cwd] = 1
+    php_admin_value[opcache.validate_timestamps] = 1
+    php_admin_value[opcache.revalidate_freq] = 2
+    php_admin_value[opcache.fast_shutdown] = 1
     '';
   };
 
