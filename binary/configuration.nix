@@ -20,12 +20,12 @@
     # hostname from mnemonic encoding word list
     # http://web.archive.org/web/20091003023412/http://tothink.com/mnemonic/wordlist.txt
     # you could also consider one of these lists https://namingschemes.com/
-    hostName = "ip4d152ad6";
-    domain = "dynamic.kabel-deutschland.de";
+    hostName = "binary";
+    domain = "lan.davidak.de";
     search = [ "${config.networking.domain}" ];
 
     interfaces = { 
-      eth0.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ]; 
+      enp0s18.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ]; 
     };
 
     nameservers = [ "10.0.0.1" "8.8.8.8" ];
@@ -105,8 +105,20 @@
     openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0gSy7qdULWLSpGuGM6BAoFztX123g/cbW6x3TfzKo0s59y9OrzHrCSTYg3QN9BY1jLRp5DSMjHvsPS1Z/yp3EIJJS/dDso5/noDqOMBLOQgIdCLKipTudngpFDvnCAAg0IQl6iuVRznQvq9Xww65uYyR3OAv4DMvHFQn0qa5G3ZHCoj7I6FATTwGDKPeuqVF2MtdXC1XXx7v7zsar1sBhibUlbWSWhSvw+vhM+Qtj95wkHzI8O93Xy8Vqb5/OoXQDGyA0MnORCLeE8t7EvUi9ukXGz6QMwRX/T1RTLBP+pvrT5UyPtchzgZigbxvegnAy8HRA7I9TlUSFnTVvN6sg6z7n/F09HX1ETBv1qce/uuDc+npfM6Kdykz93ydro1ZfnPabD6rvie972EK5IVsO6n5066vVVhUt9QxDl2CDa0tLBxnGovvV1nmtcjq2AewOX2vj5qD0U256AiiS8tNA0i9GQLW90x6o1/Ih2xaPagfrRmpQjR1ecbEFYxT34Lp5ZuC9x5Nm67RGb4JvvbMrz3qjR5YARKOiryJ5owrN3TUJmYp75xT7QBGkXBwhQJZwwBFhg5rKC5BJIj5x4PGJXrwHHuk6gpbLRbgoT69NmJYIkKZaPSIt+oOzVmgKBM5LTtI4JI8kPs2CHo2FwuYAnP9XAfGoTuB/Ir9ECkFoEQ== davidak" ];
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
-  system.activationScripts.webspace = "for dir in /var/www/*; do mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
   system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
+
+  security.acme = {
+    certs = {
+      "${config.networking.hostName}.${config.networking.domain}" = {
+        webroot = "/var/www/davidak/web";
+        email = "post@davidak.de";
+        user = "davidak";
+        group = "nginx";
+        allowKeysForGroup = true;
+        postRun = "systemctl reload nginx.service";
+      };
+    };
+  };
 
   services.nginx = {
     enable = true;
@@ -165,6 +177,25 @@
       
       }
 
+      server {
+        listen 80;
+        #listen 443 default_server ssl;
+        server_name ${config.networking.hostName}.${config.networking.domain};
+
+        #ssl_certificate /var/lib/acme/${config.networking.hostName}.${config.networking.domain}/chain.pem;
+        #ssl_certificate_key /var/lib/acme/${config.networking.hostName}.${config.networking.domain}/cert.pem;
+        #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        #ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+        #ssl_prefer_server_ciphers on;
+        #ssl_session_cache shared:SSL:10m;
+      
+        location / {
+          root /var/www/davidak/web;
+          index index.html;
+        }
+      
+      }
+
 
       include /etc/nginx/conf.d/*;
     '';
@@ -186,5 +217,5 @@
   users.users.root.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0gSy7qdULWLSpGuGM6BAoFztX123g/cbW6x3TfzKo0s59y9OrzHrCSTYg3QN9BY1jLRp5DSMjHvsPS1Z/yp3EIJJS/dDso5/noDqOMBLOQgIdCLKipTudngpFDvnCAAg0IQl6iuVRznQvq9Xww65uYyR3OAv4DMvHFQn0qa5G3ZHCoj7I6FATTwGDKPeuqVF2MtdXC1XXx7v7zsar1sBhibUlbWSWhSvw+vhM+Qtj95wkHzI8O93Xy8Vqb5/OoXQDGyA0MnORCLeE8t7EvUi9ukXGz6QMwRX/T1RTLBP+pvrT5UyPtchzgZigbxvegnAy8HRA7I9TlUSFnTVvN6sg6z7n/F09HX1ETBv1qce/uuDc+npfM6Kdykz93ydro1ZfnPabD6rvie972EK5IVsO6n5066vVVhUt9QxDl2CDa0tLBxnGovvV1nmtcjq2AewOX2vj5qD0U256AiiS8tNA0i9GQLW90x6o1/Ih2xaPagfrRmpQjR1ecbEFYxT34Lp5ZuC9x5Nm67RGb4JvvbMrz3qjR5YARKOiryJ5owrN3TUJmYp75xT7QBGkXBwhQJZwwBFhg5rKC5BJIj5x4PGJXrwHHuk6gpbLRbgoT69NmJYIkKZaPSIt+oOzVmgKBM5LTtI4JI8kPs2CHo2FwuYAnP9XAfGoTuB/Ir9ECkFoEQ== davidak" ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "15.09";
+  system.stateVersion = "16.03";
 }
