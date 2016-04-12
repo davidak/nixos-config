@@ -53,7 +53,7 @@
   environment.systemPackages = with pkgs; [
     htop
     wget
-    mailutils
+    #mailutils
     tree
   ];
 
@@ -107,97 +107,12 @@
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
   system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
 
-  security.acme = {
-    certs = {
-      "${config.networking.hostName}.${config.networking.domain}" = {
-        webroot = "/var/www/davidak/web";
-        email = "post@davidak.de";
-        user = "davidak";
-        group = "nginx";
-        allowKeysForGroup = true;
-        postRun = "systemctl reload nginx.service";
-      };
-    };
-  };
-
-  services.nginx = {
+  # Caddy Webserver
+  services.caddy = {
     enable = true;
+    email = "post@davidak.de";
     config = ''
-      worker_processes  2;
-
-      events {
-        worker_connections  1024;
-      }
-    '';
-    httpConfig = ''
-      default_type  application/octet-stream;
-
-      sendfile        on;
-      keepalive_timeout  65;
-
-      gzip              on;
-      gzip_disable "MSIE [1-6]\.(?!.*SV1)";
-      gzip_buffers      16 8k;
-      gzip_comp_level   4;
-      gzip_http_version 1.0;
-      gzip_min_length   1000;
-      gzip_types        text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon image/bmp;
-      gzip_vary         on;
-
-      server {
-        listen  80;
-        server_name _;
-
-        location / {
-          root ${pkgs.nginx}/html;
-          index index.html;
-        }
-
-        error_page  500 502 503 504 /50x.html;
-        location = /50x.html {
-          root   ${pkgs.nginx}/html;
-        }
-
-      }
-
-      # AquaRegia Band
-      server {
-        listen  80;
-        server_name www.aquaregia.de;
-        return 301 http://aquaregia.de$request_uri;
-      }
-      server {
-        listen  80;
-        server_name aquaregia.de;
-      
-        location / {
-          root ${pkgs.webseite-aquaregia};
-          index index.html;
-        }
-      
-      }
-
-      server {
-        listen 80;
-        #listen 443 default_server ssl;
-        server_name ${config.networking.hostName}.${config.networking.domain};
-
-        #ssl_certificate /var/lib/acme/${config.networking.hostName}.${config.networking.domain}/chain.pem;
-        #ssl_certificate_key /var/lib/acme/${config.networking.hostName}.${config.networking.domain}/cert.pem;
-        #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        #ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-        #ssl_prefer_server_ciphers on;
-        #ssl_session_cache shared:SSL:10m;
-      
-        location / {
-          root /var/www/davidak/web;
-          index index.html;
-        }
-      
-      }
-
-
-      include /etc/nginx/conf.d/*;
+    import /var/www/*/web/Caddyfile
     '';
   };
 
