@@ -20,7 +20,7 @@ in
     domain = "lan";
 
     interfaces = {
-      eth0.ip4 = [ { address = "10.0.0.16"; prefixLength = 8; } ]; 
+      enp0s18.ip4 = [ { address = "10.0.0.16"; prefixLength = 8; } ]; 
     };
 
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
@@ -30,7 +30,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 8080 ];
+      allowedTCPPorts = [ 80 ];
       allowedUDPPorts = [];
     };
 
@@ -63,7 +63,7 @@ in
 
   services.transmission = {
     enable = true;
-    port = 8080;
+    port = 80;
     settings = {
       rpc-bind-address = "10.0.0.16";
       rpc-whitelist-enabled = true;
@@ -83,7 +83,8 @@ in
       blocklist-url = "http://john.bitsurge.net/public/biglist.p2p.gz";
     };
   };
+  systemd.services.transmission.serviceConfig.AmbientCapabilities = "cap_net_bind_service";
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "15.09";
+  system.stateVersion = "16.03";
 }
