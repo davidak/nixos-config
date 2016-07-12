@@ -1,9 +1,13 @@
 { config, pkgs, lib, ... }:
 
+let
+  pubkey = import ../service/pubkey.nix;
+in
 {
   imports =
     [
       /etc/nixos/hardware-configuration.nix
+      ../service/ssh.nix
       ../service/fail2ban.nix
       ../service/postfix.nix
       ../service/ntp.nix
@@ -24,8 +28,8 @@
     domain = "lan.davidak.de";
     search = [ "${config.networking.domain}" ];
 
-    interfaces = { 
-      enp0s18.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ]; 
+    interfaces = {
+      enp0s18.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ];
     };
 
     nameservers = [ "10.0.0.1" "8.8.8.8" ];
@@ -53,7 +57,7 @@
   environment.systemPackages = with pkgs; [
     htop
     wget
-    #mailutils
+    mailutils
     tree
   ];
 
@@ -70,18 +74,16 @@
   services.mysql = {
     enable = true;
     initialDatabases = [
-      { name = "baikal"; schema = ./baikal.sql; }
       { name = "personen"; schema = ./personen.sql; }
       { name = "piwik"; schema = ./piwik.sql; }
       { name = "satzgenerator"; schema = ./satzgenerator.sql; }
-      { name = "blog"; schema = ./blog.sql; }
     ];
     dataDir = "/var/mysql" ;
     package = pkgs.mariadb ;
     port = 3306;
   };
 
-  services.mysqlBackup = { 
+  services.mysqlBackup = {
     enable = true;
     databases = [ "satzgenerator" ];
     location = "/var/backup/mysql";
@@ -92,9 +94,9 @@
   users.mutableUsers = false;
   users.extraUsers = lib.genAttrs [
     "aww"
-    "blog"
     "brennblatt"
     "davidak"
+    "gnaclan"
     "meinsack"
     "personen"
     "piwik"
@@ -102,7 +104,7 @@
   ] (user:  {
     isNormalUser = true;
     home = "/var/www/${user}";
-    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0gSy7qdULWLSpGuGM6BAoFztX123g/cbW6x3TfzKo0s59y9OrzHrCSTYg3QN9BY1jLRp5DSMjHvsPS1Z/yp3EIJJS/dDso5/noDqOMBLOQgIdCLKipTudngpFDvnCAAg0IQl6iuVRznQvq9Xww65uYyR3OAv4DMvHFQn0qa5G3ZHCoj7I6FATTwGDKPeuqVF2MtdXC1XXx7v7zsar1sBhibUlbWSWhSvw+vhM+Qtj95wkHzI8O93Xy8Vqb5/OoXQDGyA0MnORCLeE8t7EvUi9ukXGz6QMwRX/T1RTLBP+pvrT5UyPtchzgZigbxvegnAy8HRA7I9TlUSFnTVvN6sg6z7n/F09HX1ETBv1qce/uuDc+npfM6Kdykz93ydro1ZfnPabD6rvie972EK5IVsO6n5066vVVhUt9QxDl2CDa0tLBxnGovvV1nmtcjq2AewOX2vj5qD0U256AiiS8tNA0i9GQLW90x6o1/Ih2xaPagfrRmpQjR1ecbEFYxT34Lp5ZuC9x5Nm67RGb4JvvbMrz3qjR5YARKOiryJ5owrN3TUJmYp75xT7QBGkXBwhQJZwwBFhg5rKC5BJIj5x4PGJXrwHHuk6gpbLRbgoT69NmJYIkKZaPSIt+oOzVmgKBM5LTtI4JI8kPs2CHo2FwuYAnP9XAfGoTuB/Ir9ECkFoEQ== davidak" ];
+    openssh.authorizedKeys.keys = [ pubkey.davidak ];
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
   system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
@@ -125,11 +127,6 @@
     user = "syncthing";
     dataDir = "/home/syncthing";
   };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
-  users.users.root.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0gSy7qdULWLSpGuGM6BAoFztX123g/cbW6x3TfzKo0s59y9OrzHrCSTYg3QN9BY1jLRp5DSMjHvsPS1Z/yp3EIJJS/dDso5/noDqOMBLOQgIdCLKipTudngpFDvnCAAg0IQl6iuVRznQvq9Xww65uYyR3OAv4DMvHFQn0qa5G3ZHCoj7I6FATTwGDKPeuqVF2MtdXC1XXx7v7zsar1sBhibUlbWSWhSvw+vhM+Qtj95wkHzI8O93Xy8Vqb5/OoXQDGyA0MnORCLeE8t7EvUi9ukXGz6QMwRX/T1RTLBP+pvrT5UyPtchzgZigbxvegnAy8HRA7I9TlUSFnTVvN6sg6z7n/F09HX1ETBv1qce/uuDc+npfM6Kdykz93ydro1ZfnPabD6rvie972EK5IVsO6n5066vVVhUt9QxDl2CDa0tLBxnGovvV1nmtcjq2AewOX2vj5qD0U256AiiS8tNA0i9GQLW90x6o1/Ih2xaPagfrRmpQjR1ecbEFYxT34Lp5ZuC9x5Nm67RGb4JvvbMrz3qjR5YARKOiryJ5owrN3TUJmYp75xT7QBGkXBwhQJZwwBFhg5rKC5BJIj5x4PGJXrwHHuk6gpbLRbgoT69NmJYIkKZaPSIt+oOzVmgKBM5LTtI4JI8kPs2CHo2FwuYAnP9XAfGoTuB/Ir9ECkFoEQ== davidak" ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
