@@ -14,7 +14,7 @@
 
   networking = {
     interfaces = {
-      eth0.ip4 = [ { address = "10.0.0.252"; prefixLength = 8; } ];
+      enp0s18.ip4 = [ { address = "10.0.0.252"; prefixLength = 8; } ];
     };
 
     nameservers = [ "10.0.0.1" "8.8.8.8" ];
