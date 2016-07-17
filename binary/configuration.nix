@@ -20,13 +20,19 @@ in
     device = "/dev/vda";
   };
 
-  networking = {
+  networking = rec {
     # hostname from mnemonic encoding word list
     # http://web.archive.org/web/20091003023412/http://tothink.com/mnemonic/wordlist.txt
     # you could also consider one of these lists https://namingschemes.com/
     hostName = "binary";
     domain = "lan.davidak.de";
-    search = [ "${config.networking.domain}" ];
+    search = [ "${domain}" ];
+
+    # fix for missing hosts entry https://github.com/NixOS/nixpkgs/issues/1248
+    extraHosts = ''
+    127.0.0.1 ${hostName}.${domain} ${hostName}
+    ::1 ${hostName}.${domain} ${hostName}
+    '';
 
     interfaces = {
       enp0s18.ip4 = [ { address = "10.0.0.23"; prefixLength = 8; } ];
@@ -107,7 +113,7 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
-  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
+#  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
 
   # Caddy Webserver
 #  services.caddy = {
@@ -123,8 +129,8 @@ in
   services.isso = {
     enable = true;
     config = {
-      general.host = [ "http://davidak.binary.lan.davidak.de/" "http://beta.davidak.de/" ];
-      otherConfig = { general = { log-file = "/var/lib/isso/isso.log"; }; server = { listen = "localhost:9090"; }; };
+      general.host = [ "localhost" "http://beta.davidak.de/" ];
+      otherConfig = { server = { listen = "localhost:9090"; }; };
     };
   };
 
