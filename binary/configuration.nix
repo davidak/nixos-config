@@ -30,8 +30,16 @@ in
 
     # fix for missing hosts entry https://github.com/NixOS/nixpkgs/issues/1248
     extraHosts = ''
-    127.0.0.1 ${hostName}.${domain} ${hostName}
-    ::1 ${hostName}.${domain} ${hostName}
+    127.0.0.1 localhost.localdomain localhost
+    10.0.0.23 ${hostName}.${domain} ${hostName}
+
+    # The following lines are desirable for IPv6 capable hosts
+    ::1     ip6-localhost ip6-loopback
+    fe00::0 ip6-localnet
+    ff00::0 ip6-mcastprefix
+    ff02::1 ip6-allnodes
+    ff02::2 ip6-allrouters
+    ff02::3 ip6-allhosts
     '';
 
     interfaces = {
@@ -44,7 +52,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 3306 ];
+      allowedTCPPorts = [ 80 443 8384 3306 8081 ];
       allowedUDPPorts = [];
     };
 
@@ -126,13 +134,7 @@ in
 #  };
 
 # testing isso PR https://github.com/NixOS/nixpkgs/pull/13587
-  services.isso = {
-    enable = true;
-    config = {
-      general.host = [ "localhost" "http://beta.davidak.de/" ];
-      otherConfig = { server = { listen = "localhost:9090"; }; };
-    };
-  };
+  containers.isso.config = ./isso-test.nix;
 
   users.users.syncthing = {
     isNormalUser = true;
