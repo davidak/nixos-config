@@ -107,15 +107,25 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
-  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; done";
+  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
 
   # Caddy Webserver
-  services.caddy = {
+#  services.caddy = {
+#    enable = true;
+#    email = "post@davidak.de";
+#    ca = "https://acme-staging.api.letsencrypt.org/directory";
+#    config = ''
+#    import /var/www/*/web/Caddyfile
+#    '';
+#  };
+
+# testing isso PR https://github.com/NixOS/nixpkgs/pull/13587
+  services.isso = {
     enable = true;
-    email = "post@davidak.de";
-    config = ''
-    import /var/www/*/web/Caddyfile
-    '';
+    config = {
+      general.host = [ "http://davidak.binary.lan.davidak.de/" "http://beta.davidak.de/" ];
+      otherConfig = { general = { log-file = "/var/lib/isso/isso.log"; }; server = { listen = "localhost:9090"; }; };
+    };
   };
 
   users.users.syncthing = {
@@ -127,6 +137,8 @@ in
     user = "syncthing";
     dataDir = "/home/syncthing";
   };
+
+  #nix.useSandbox = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
