@@ -134,7 +134,37 @@ in
 #  };
 
 # testing isso PR https://github.com/NixOS/nixpkgs/pull/13587
-  containers.isso.config = ./isso-test.nix;
+  services.isso = {
+    enable = true;
+    config = {
+      general.host = [ "localhost" "http://beta.davidak.de/" ];
+      otherConfig = {
+        server.listen = "http://localhost:9001";
+      };
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    httpConfig = ''
+      server {
+        server_name binary.lan.davidak.de;
+        location / {
+          return 404;
+        }
+        location /static/js/ {
+          alias ${pkgs.isso.js}/;
+        }
+        location /isso {
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Script-Name /isso;
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_pass http://localhost:9001;
+        }
+      }
+    '';
+  };
 
   users.users.syncthing = {
     isNormalUser = true;
