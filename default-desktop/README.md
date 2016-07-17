@@ -1,0 +1,2 @@
+NixOS Desktop Configuration Template
+====================================
