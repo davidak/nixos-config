@@ -6,9 +6,6 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  # fix for X11 on Virtualbox https://github.com/NixOS/nixpkgs/pull/16964
-  services.xserver.videoDrivers = lib.mkOverride 50 [ "virtualbox" "modesetting" ];
-
   boot.loader.grub = {
     enable = true;
     version = 2;
