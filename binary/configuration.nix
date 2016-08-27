@@ -71,6 +71,7 @@ in
   environment.systemPackages = with pkgs; [
     htop
     wget
+    rsync
     mailutils
     tree
   ];
@@ -121,49 +122,40 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   });
   system.activationScripts.chmod-www = "chmod 0755 /var/www";
-#  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
+  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
 
   # Caddy Webserver
-#  services.caddy = {
-#    enable = true;
-#    email = "post@davidak.de";
-#    ca = "https://acme-staging.api.letsencrypt.org/directory";
-#    config = ''
-#    import /var/www/*/web/Caddyfile
-#    '';
-#  };
+  services.caddy = {
+    enable = true;
+    email = "post@davidak.de";
+    ca = "https://acme-staging.api.letsencrypt.org/directory";
+    agree = true;
+    config = ''
+    import /var/www/*/web/Caddyfile
+    '';
+  };
 
-# testing isso PR https://github.com/NixOS/nixpkgs/pull/13587
+  # testing isso PR https://github.com/NixOS/nixpkgs/pull/13587
   services.isso = {
     enable = true;
     config = {
-      general.host = [ "localhost" "http://beta.davidak.de/" ];
+      general.host = [ "davidak.binary.lan.davidak.de" "davidak.de" ];
       otherConfig = {
-        server.listen = "http://localhost:9001";
+        server.listen = "http://127.0.0.1:9001";
+        general.dbpath = "/var/lib/isso/comments.db";
+        general.notify = "smtp";
+        smtp.host = "localhost";
+        smtp.port = "587";
+        smtp.security = "starttls";
+        smtp.to = "system@davidak.de";
+        smtp.timeout = "10";
+        guard.enabled = "true";
+        guard.ratelimit = "2";
+        guard.direct-reply = "3";
+        guard.reply-to-self = "false";
+        #guard.require-email = "false";
       };
     };
-  };
-
-  services.nginx = {
-    enable = true;
-    httpConfig = ''
-      server {
-        server_name binary.lan.davidak.de;
-        location / {
-          return 404;
-        }
-        location /static/js/ {
-          alias ${pkgs.isso.js}/;
-        }
-        location /isso {
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Script-Name /isso;
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_pass http://localhost:9001;
-        }
-      }
-    '';
   };
 
   users.users.syncthing = {
