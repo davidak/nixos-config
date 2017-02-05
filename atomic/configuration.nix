@@ -113,12 +113,13 @@ in
 
   # PHP-FPM
   services.phpfpm = {
+    phpPackage = pkgs.php56;
     phpOptions = ''
       date.timezone = "Europe/Berlin"
       ;memory_limit = 256M
       ;max_execution_time = 60
 
-      zend_extension = ${pkgs.php}/lib/php/extensions/opcache.so
+      zend_extension = ${pkgs.php56}/lib/php/extensions/opcache.so
       opcache.enable = 1
       opcache.memory_consumption = 64
       opcache.interned_strings_buffer = 16
@@ -145,6 +146,8 @@ in
           pm.max_spare_servers = 3
           pm.max_requests = 500
           chdir = /
+
+          php_admin_value[always_populate_raw_post_data] = -1
         '';
         listen = "/run/phpfpm/piwik.sock";
       };
