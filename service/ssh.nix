@@ -4,8 +4,10 @@ let
   pubkey = import ./pubkey.nix;
 in
 {
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+    passwordAuthentication = false;
+  };
   users.extraUsers.root.openssh.authorizedKeys.keys = [ pubkey.davidak ];
 }
