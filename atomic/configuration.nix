@@ -82,6 +82,14 @@ in
     package = pkgs.mariadb;
   };
 
+  services.mysqlBackup = {
+    enable = true;
+    databases = [ "mysql" "piwik" "satzgenerator" ];
+    location = "/var/backup/mysql";
+    period = "0 4 * * *";
+    singleTransaction = true;
+  };
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
