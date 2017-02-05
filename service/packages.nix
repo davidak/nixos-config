@@ -2,9 +2,13 @@
 
 {
   environment.systemPackages = with pkgs; [
-    busybox
     htop
     wget
+    curl
+    telnet
+    whois
+    file
+    unzip
     rsync
     screen
     mailutils
