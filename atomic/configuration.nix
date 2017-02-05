@@ -76,6 +76,12 @@ in
     tree
   ];
 
+  # MariaDB
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
