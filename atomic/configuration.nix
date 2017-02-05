@@ -90,6 +90,36 @@ in
     singleTransaction = true;
   };
 
+  # Create webspaces and users
+  system.activationScripts.create-varwww = "mkdir -p -m 0755 /var/www";
+  users.mutableUsers = false;
+  users.extraUsers = lib.genAttrs [
+    "aww"
+    "brennblatt"
+    "davidak"
+    "gnaclan"
+    "meinsack"
+    "personen"
+    "piwik"
+    "satzgenerator"
+  ] (user:  {
+    isNormalUser = true;
+    home = "/var/www/${user}";
+    openssh.authorizedKeys.keys = [ pubkey.davidak ];
+  });
+  system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
+
+  # Caddy Webserver
+  services.caddy = {
+    enable = true;
+    email = "post@davidak.de";
+    #ca = "https://acme-staging.api.letsencrypt.org/directory";
+    agree = true;
+    config = ''
+    import /var/www/*/web/Caddyfile
+    '';
+  };
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
