@@ -7,6 +7,7 @@ in
   imports =
     [
       /etc/nixos/hardware-configuration.nix
+      ../service/packages.nix
       ../service/ssh.nix
       ../service/fail2ban.nix
       ../service/postfix.nix
@@ -66,15 +67,6 @@ in
     consoleKeyMap = "de";
     defaultLocale = "de_DE.UTF-8";
   };
-
-  # System Packages
-  environment.systemPackages = with pkgs; [
-    htop
-    wget
-    rsync
-    mailutils
-    tree
-  ];
 
   # MariaDB
   services.mysql = {
