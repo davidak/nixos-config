@@ -44,7 +44,13 @@ in
 
     interfaces = {
       enp0s3.ip4 = [ { address = "172.31.1.100"; prefixLength = 24; } ];
-      enp0s3.ip6 = [ { address = "2a01:04f8:0c17:5c0e::1"; prefixLength = 64; } ];
+      enp0s3.ip6 = [
+        { address = "2a01:04f8:0c17:5c0e::1"; prefixLength = 64; }
+        { address = "2a01:04f8:0c17:5c0e::2"; prefixLength = 64; }
+        { address = "2a01:04f8:0c17:5c0e::4"; prefixLength = 64; }
+        { address = "2a01:04f8:0c17:5c0e::8"; prefixLength = 64; }
+        { address = "2a01:04f8:0c17:5c0e::16"; prefixLength = 64; }
+      ];
     };
 
     nameservers = [ "213.133.99.99" "213.133.98.98" "213.133.100.100" ];
@@ -86,10 +92,13 @@ in
   system.activationScripts.create-varwww = "mkdir -p -m 0755 /var/www";
   users.mutableUsers = false;
   users.extraUsers = lib.genAttrs [
+    "aquaregia"
     "aww"
     "brennblatt"
     "davidak"
+    "default"
     "gnaclan"
+    "kf"
     "meinsack"
     "personen"
     "piwik"
@@ -100,6 +109,65 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   });
   system.activationScripts.webspace = "for dir in /var/www/*/; do chmod 0755 \${dir}; mkdir -p -m 0755 \${dir}/{web,log}; chown \$(stat -c \"%U:%G\" \${dir}) \${dir}/web; chown caddy:users \${dir}/log; done";
+  system.activationScripts.default-site = "touch /var/www/default/web/index.html";
+
+  # PHP-FPM
+  services.phpfpm = {
+    phpOptions = ''
+      date.timezone = "Europe/Berlin"
+      ;memory_limit = 256M
+      ;max_execution_time = 60
+
+      zend_extension = ${pkgs.php}/lib/php/extensions/opcache.so
+      opcache.enable = 1
+      opcache.memory_consumption = 64
+      opcache.interned_strings_buffer = 16
+      opcache.max_accelerated_files = 10000
+      opcache.max_wasted_percentage = 5
+      opcache.use_cwd = 1
+      opcache.validate_timestamps = 1
+      opcache.revalidate_freq = 2
+      opcache.fast_shutdown = 1
+    '';
+    pools = {
+      piwik = {
+        extraConfig = ''
+          user = piwik
+          group = users
+          listen.owner = caddy
+          listen.group = caddy
+          listen.mode = 0660
+
+          pm = dynamic
+          pm.max_children = 20
+          pm.start_servers = 2
+          pm.min_spare_servers = 1
+          pm.max_spare_servers = 3
+          pm.max_requests = 500
+          chdir = /
+        '';
+        listen = "/run/phpfpm/piwik.sock";
+      };
+    gnaclan = {
+      extraConfig = ''
+        user = gnaclan
+        group = users
+        listen.owner = caddy
+        listen.group = caddy
+        listen.mode = 0660
+
+        pm = dynamic
+        pm.max_children = 10
+        pm.start_servers = 2
+        pm.min_spare_servers = 1
+        pm.max_spare_servers = 3
+        pm.max_requests = 500
+        chdir = /
+      '';
+      listen = "/run/phpfpm/gnaclan.sock";
+    };
+    };
+  };
 
   # Caddy Webserver
   services.caddy = {
@@ -109,10 +177,14 @@ in
     agree = true;
     config = ''
     import /var/www/*/web/Caddyfile
+
+    :80 {
+      root /var/www/default/web
+      header / X-Backend-Server {hostname}
+    }
     '';
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
-
 }
