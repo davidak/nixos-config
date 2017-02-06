@@ -31,3 +31,18 @@ and set a secure root password
 ```
 $ mysqladmin -u root password newpass
 ```
+
+### deploy websites
+
+#### aww.davidak.de
+```
+git clone https://github.com/davidak/aww.git /var/www/aww/web/
+chown aww:users -R /var/www/aww/web/
+```
+
+#### davidak.de
+```
+imac:Webseite davidak$ nikola build && nikola deploy
+```
+
+...
