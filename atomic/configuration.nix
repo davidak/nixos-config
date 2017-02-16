@@ -173,6 +173,13 @@ in
     };
   };
 
+  # test if issue is fixed in nixpkgs master
+  # https://github.com/mholt/caddy/issues/1204
+  # https://github.com/NixOS/nixpkgs/pull/22544
+  nixpkgs.config.packageOverrides = super: let self = super.pkgs; in {
+    caddy = (import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {}).caddy;
+  };
+
   # Caddy Webserver
   services.caddy = {
     enable = true;
