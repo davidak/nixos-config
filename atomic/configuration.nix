@@ -15,6 +15,12 @@ in
       ../service/vim.nix
     ];
 
+  boot.kernel.sysctl = {
+    # recommended by mysqltuner
+    "vm.swappiness" = 10;
+    "fs.aio-max-nr" = 1048576;
+  };
+
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -78,6 +84,13 @@ in
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
+    extraOptions = ''
+      query_cache_type = 1
+      thread_cache_size = 4
+      innodb_buffer_pool_size = 256M
+      innodb_buffer_pool_instances = 1
+      aria_pagecache_buffer_size = 1M
+    '';
   };
 
   services.mysqlBackup = {
