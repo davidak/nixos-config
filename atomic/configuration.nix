@@ -86,10 +86,15 @@ in
     package = pkgs.mariadb;
     extraOptions = ''
       query_cache_type = 1
+      query_cache_size = 2M
       thread_cache_size = 4
       innodb_buffer_pool_size = 256M
       innodb_buffer_pool_instances = 1
-      aria_pagecache_buffer_size = 1M
+      # smallest value since it's not used
+      aria_pagecache_buffer_size = 128K
+      # values should be equal
+      tmp_table_size = 20M
+      max_heap_table_size = 20M
     '';
   };
 
