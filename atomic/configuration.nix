@@ -80,6 +80,9 @@ in
     defaultLocale = "de_DE.UTF-8";
   };
 
+  services.vnstat.enable = true;
+  environment.systemPackages = [ pkgs.vnstat ];
+
   # MariaDB
   services.mysql = {
     enable = true;
