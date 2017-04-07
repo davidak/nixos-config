@@ -214,7 +214,6 @@ in
   services.caddy = {
     enable = true;
     email = "post@davidak.de";
-    #ca = "https://acme-staging.api.letsencrypt.org/directory";
     agree = true;
     config = ''
     import /var/www/*/web/Caddyfile
@@ -227,5 +226,5 @@ in
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.09";
+  system.stateVersion = "17.03";
 }
