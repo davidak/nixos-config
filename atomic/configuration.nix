@@ -73,6 +73,7 @@ in
     useDHCP = false;
   };
 
+  # Localization
   time.timeZone = "Europe/Berlin";
   i18n = {
     consoleFont = "lat9w-16";
@@ -80,10 +81,10 @@ in
     defaultLocale = "de_DE.UTF-8";
   };
 
+  # Monitoring
+  services.netdata.enable = true;
   services.vnstat.enable = true;
   environment.systemPackages = [ pkgs.vnstat ];
-
-  services.netdata.enable = true;
 
   # MariaDB
   services.mysql = {
