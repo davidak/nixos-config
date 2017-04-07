@@ -84,7 +84,6 @@ in
   # Monitoring
   services.netdata.enable = true;
   services.vnstat.enable = true;
-  environment.systemPackages = [ pkgs.vnstat ];
 
   # MariaDB
   services.mysql = {
@@ -230,6 +229,18 @@ in
     }
     '';
   };
+
+  # Cron
+  services.cron = {
+    enable = true;
+    mailto = "root";
+    systemCronJobs = [
+      "5 * * * * piwik ${pkgs.php}/bin/php /var/www/piwik/web/console core:archive --url=https://stats.davidak.de/ > /var/www/piwik/log/piwik-archive.log"
+    ];
+  };
+
+  # Packages
+  environment.systemPackages = with pkgs; [ vnstat php ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
