@@ -66,7 +66,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 3306 8081 ];
+      allowedTCPPorts = [ 80 443 8384 3306 8081 19999 ];
       allowedUDPPorts = [];
     };
 
@@ -82,6 +82,8 @@ in
 
   services.vnstat.enable = true;
   environment.systemPackages = [ pkgs.vnstat ];
+
+  services.netdata.enable = true;
 
   # MariaDB
   services.mysql = {
