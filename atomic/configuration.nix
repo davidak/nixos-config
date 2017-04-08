@@ -235,7 +235,7 @@ in
     enable = true;
     mailto = "root";
     systemCronJobs = [
-      "5 * * * * piwik ${pkgs.php}/bin/php /var/www/piwik/web/console core:archive --url=https://stats.davidak.de/ > /var/www/piwik/log/piwik-archive.log"
+      "5 * * * * piwik ${pkgs.php}/bin/php /var/www/piwik/web/console core:archive --url=https://stats.davidak.de/ > /var/www/piwik/piwik-archive.log"
     ];
   };
 
