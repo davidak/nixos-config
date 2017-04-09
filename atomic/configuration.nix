@@ -107,6 +107,7 @@ in
     enable = true;
     databases = [ "mysql" "piwik" "satzgenerator" ];
     location = "/var/backup/mysql";
+    user = "root";
     period = "0 4 * * *";
     singleTransaction = true;
   };
