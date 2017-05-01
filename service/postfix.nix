@@ -42,14 +42,14 @@
       disable_vrfy_command = yes
 
       # Security
-      smtpd_use_tls = yes
+      #smtpd_use_tls = yes
       #smtpd_tls_cert_file = /var/lib/acme/pastespace.org/cert.pem
       #smtpd_tls_key_file = /var/lib/acme/pastespace.org/key.pem
-      smtpd_tls_session_cache_database = btree:''${data_directory}/smtpd_scache
-      smtp_tls_session_cache_database = btree:''${data_directory}/smtp_scache
-      smtpd_tls_wrappermode = no
-      smtpd_tls_security_level = encrypt
-      smtpd_tls_protocols = !SSLv2, !SSLv3
+      #smtpd_tls_session_cache_database = btree:''${data_directory}/smtpd_scache
+      #smtp_tls_session_cache_database = btree:''${data_directory}/smtp_scache
+      #smtpd_tls_wrappermode = no
+      #smtpd_tls_security_level = encrypt
+      #smtpd_tls_protocols = !SSLv2, !SSLv3
 
       smtpd_recipient_restrictions =
         permit_mynetworks
