@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python35Packages }:
+{ lib, fetchFromGitHub, python35Packages }:
 
 python35Packages.buildPythonPackage rec {
   name = "satzgenerator-${version}";
@@ -14,12 +14,13 @@ python35Packages.buildPythonPackage rec {
   # no tests available
   doCheck = false;
 
-  buildInputs = with python35Packages; [ bottle gunicorn sqlalchemy pymysql pyzufall ];
+  propagatedBuildInputs = with python35Packages; [ bottle gunicorn sqlalchemy pymysql pyzufall ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "satzgenerator.de";
     homepage = "https://satzgenerator.de/";
     license = licenses.gpl3Plus;
+    platforms = platforms.all;
     maintainers = with maintainers; [ davidak ];
   };
 }
