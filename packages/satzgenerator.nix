@@ -2,13 +2,13 @@
 
 python35Packages.buildPythonPackage rec {
   name = "satzgenerator-${version}";
-  version = "3.1.1";
+  version = "3.1.2";
 
   src = fetchFromGitHub {
     owner = "davidak";
     repo = "satzgenerator.de";
-    rev = "b6b45cb8bbafd0aa98c9096e3ba6e91665ecbf5a";
-    sha256 = "078fvh2hw7nj138ryyywjk6xvcw8lfnjzhxkca9cnfkcpf9i0zkl";
+    rev = "1edd9c6cbfca02ed46f2d538d5cf0fb29857cdfb";
+    sha256 = "0by0k36shl2gn7wlljs86vd3dg1dg2r10sq406r1b8pk8f9vmk0v";
   };
 
   # no tests available
