@@ -240,8 +240,14 @@ in
     ];
   };
 
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      satzgenerator-de = pkgs.callPackage ../packages/satzgenerator.nix { };
+    };
+  };
+
   # Packages
-  environment.systemPackages = with pkgs; [ vnstat php ];
+  environment.systemPackages = with pkgs; [ vnstat php satzgenerator-de ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
