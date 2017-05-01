@@ -2,6 +2,7 @@
 
 let
   pubkey = import ../service/pubkey.nix;
+  credentials = import ./credentials.nix;
 in
 {
   imports =
@@ -13,6 +14,7 @@ in
       ../service/postfix.nix
       ../service/ntp.nix
       ../service/vim.nix
+      ../modules/satzgenerator.nix
     ];
 
   boot.kernel.sysctl = {
@@ -127,7 +129,6 @@ in
     "meinsack"
     "personen"
     "piwik"
-    "satzgenerator"
   ] (user:  {
     isNormalUser = true;
     home = "/var/www/${user}";
@@ -231,6 +232,18 @@ in
     '';
   };
 
+  services.satzgenerator = {
+    enable = true;
+    bind = "127.0.0.1:8000";
+    workers = 5;
+    database = {
+      host = "127.0.0.1";
+      user = credentials.satzgenerator_mysql_user;
+      password = credentials.satzgenerator_mysql_password;
+      name = "satzgenerator";
+    };
+  };
+
   # Cron
   services.cron = {
     enable = true;
@@ -240,14 +253,8 @@ in
     ];
   };
 
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      satzgenerator-de = pkgs.callPackage ../packages/satzgenerator.nix { };
-    };
-  };
-
   # Packages
-  environment.systemPackages = with pkgs; [ vnstat php satzgenerator-de ];
+  environment.systemPackages = with pkgs; [ vnstat php ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
