@@ -58,6 +58,8 @@ in
         { address = "2a01:04f8:0c17:5c0e::4"; prefixLength = 64; }
         { address = "2a01:04f8:0c17:5c0e::8"; prefixLength = 64; }
         { address = "2a01:04f8:0c17:5c0e::16"; prefixLength = 64; }
+        # satzgenerator
+        { address = "2a01:04f8:0c17:5c0e::32"; prefixLength = 64; }
       ];
     };
 
@@ -68,7 +70,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 3306 8081 19999 ];
+      allowedTCPPorts = [ 80 443 8384 19999 ];
       allowedUDPPorts = [];
     };
 
@@ -224,6 +226,16 @@ in
     agree = true;
     config = ''
     import /var/www/*/web/Caddyfile
+
+    satzgenerator.net www.satzgenerator.net www.satzgenerator.de {
+      redir https://satzgenerator.de{uri}
+    }
+
+    satzgenerator.de {
+      proxy / ${config.services.satzgenerator.bind} {
+        transparent
+      }
+    }
 
     :80 {
       root /var/www/default/web
