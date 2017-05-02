@@ -56,15 +56,20 @@ in
         { address = "172.31.1.100"; prefixLength = 24; }
       ];
       enp0s3.ip6 = [
-        # davidak.de
+        # davidak
         { address = "2a01:04f8:0c17:5c0e::1"; prefixLength = 64; }
-        # aquaregia.de
+        # aquaregia
         { address = "2a01:04f8:0c17:5c0e::2"; prefixLength = 64; }
+        # brennblatt
         { address = "2a01:04f8:0c17:5c0e::4"; prefixLength = 64; }
+        # meinsack
         { address = "2a01:04f8:0c17:5c0e::8"; prefixLength = 64; }
+        # kf
         { address = "2a01:04f8:0c17:5c0e::16"; prefixLength = 64; }
-        # satzgenerator.de
+        # satzgenerator
         { address = "2a01:04f8:0c17:5c0e::32"; prefixLength = 64; }
+        # chan
+        { address = "2a01:04f8:0c17:5c0e::64"; prefixLength = 64; }
       ];
     };
 
