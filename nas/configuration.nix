@@ -21,6 +21,12 @@ in
     device = "/dev/sda";
   };
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    numDevices = 2;
+  };
+
   networking = rec {
     hostName = "NAS";
     domain = "lan";
