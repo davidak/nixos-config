@@ -68,29 +68,35 @@ in
   services.vnstat.enable = true;
 
   # SMB Shares
+  system.activationScripts.ShareDirectoryStructure = "mkdir -p -m 0777 /data/{Backup,Bilder,Musik,Filme}";
   services.samba = {
     enable = true;
     syncPasswordsByPam = true;
+    shares = {
+      Backup = {
+        path = "/data/Backup";
+        public = true;
+        writable = true;
+      };
+      Bilder = {
+        path = "/data/Bilder";
+        public = true;
+        writable = true;
+      };
+      Musik = {
+        path = "/data/Musik";
+        public = true;
+        writable = true;
+      };
+      Filme = {
+        path = "/data/Filme";
+        writable = true;
+        public = true;
+      };
+    };
     extraConfig = ''
-      [backup]
-      path = /data/backup
-      read only = no
-      guest ok = no
-
-      [bilder]
-      path = /data/bilder
-      read only = no
-      guest ok = yes
-
-      [musik]
-      path = /data/musik
-      read only = no
-      guest ok = yes
-
-      [videos]
-      path = /data/videos
-      read only = no
-      guest ok = yes
+      # login to guest if login fails
+      map to guest = Bad User
     '';
   };
 
