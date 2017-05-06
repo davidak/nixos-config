@@ -1,15 +1,15 @@
 NixOS NAS
 =========
 
-Why should you buy an overpriced NAS or install a NAS distribution like [FreeNAS](https://freenas.org/) or [Rockstor](http://rockstor.com/) when you can setup Samba with few lines of code in NixOS?
+Why buy an overpriced NAS or install a NAS distribution like [FreeNAS](https://freenas.org/) or [Rockstor](http://rockstor.com/) when you can setup [Samba](https://www.samba.org/) with few lines of [NixOS](http://nixos.org/) config?
 
-Projekt still **WORK IN PROGRESS**!
+Project is **WORK IN PROGRESS**!
 
 Features
 --------
 
 - SMB Shares
-- Monitoring with [netdata](https://my-netdata.io/) and [vnstat](http://humdi.net/vnstat/)
+- Monitoring with [netdata](https://my-netdata.io/) and [vnStat](http://humdi.net/vnstat/)
 
 Install
 -------
