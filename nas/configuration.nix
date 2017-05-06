@@ -21,6 +21,15 @@ in
     device = "/dev/sda";
   };
 
+  services.smartd = {
+    enable = true;
+    notifications = {
+      mail.enable = true;
+      wall.enable = false;
+      test = true;
+    };
+  };
+
   zramSwap = {
     enable = true;
     memoryPercent = 50;
