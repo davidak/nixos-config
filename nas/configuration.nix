@@ -2,6 +2,7 @@
 
 let
   pubkey = import ../service/pubkey.nix;
+  bcachefs-tools = pkgs.callPackage ../packages/bcachefs-tools.nix { };
 in
 {
   imports =
@@ -15,10 +16,16 @@ in
       ../service/vim.nix
     ];
 
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/sda";
+  boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      device = "/dev/sda";
+      useOSProber = true;
+      memtest86.enable = true;
+    };
+    tmpOnTmpfs = true;
+    cleanTmpDir = true;
   };
 
   services.smartd = {
@@ -122,7 +129,7 @@ in
   };
 
   # Packages
-  environment.systemPackages = with pkgs; [ vnstat samba ];
+  environment.systemPackages = with pkgs; [ vnstat samba bcachefs-tools ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
