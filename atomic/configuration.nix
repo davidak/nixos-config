@@ -80,7 +80,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 19999 ];
+      allowedTCPPorts = [ 80 443 8384 31416 19999 ];
       allowedUDPPorts = [];
     };
 
@@ -264,6 +264,11 @@ in
       password = credentials.satzgenerator_mysql_password;
       name = "satzgenerator";
     };
+  };
+
+  services.boinc = {
+    enable = true;
+    allowRemoteGuiRpc = true;
   };
 
   # Cron
