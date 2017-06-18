@@ -16,7 +16,8 @@
     unzip
     rsync
     screen
-    mailutils
+    # disable while broken https://github.com/NixOS/nixpkgs/issues/26682
+    #mailutils
     tree
     jq
     gitAndTools.gitFull
