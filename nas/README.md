@@ -12,10 +12,10 @@ Features
 - Monitoring storage devices via [S.M.A.R.T.](https://en.wikipedia.org/wiki/S.M.A.R.T.) with email notification
 - Monitoring with [netdata](https://my-netdata.io/) and [vnStat](http://humdi.net/vnstat/)
 
-Tipps and Tricks
+Tips and Tricks
 ----------------
 
-- enable [AHCI](https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface) in your BIOS to have hot swap
+- enable [AHCI](https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface) in your BIOS to have hot swap support
 
 Install
 -------
