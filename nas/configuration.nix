@@ -2,7 +2,6 @@
 
 let
   pubkey = import ../service/pubkey.nix;
-  bcachefs-tools = pkgs.callPackage ../packages/bcachefs-tools.nix { };
 in
 {
   imports =
@@ -21,10 +20,7 @@ in
       enable = true;
       version = 2;
       device = "/dev/sda";
-      useOSProber = true;
-      memtest86.enable = true;
     };
-    tmpOnTmpfs = true;
     cleanTmpDir = true;
   };
 
@@ -33,24 +29,18 @@ in
     notifications = {
       mail.enable = true;
       wall.enable = false;
-      test = true;
+      #test = true;
     };
   };
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 50;
-    numDevices = 2;
-  };
-
   networking = rec {
-    hostName = "NAS";
+    hostName = "nas";
     domain = "lan";
 
     # fix for missing hosts entry https://github.com/NixOS/nixpkgs/issues/1248
     extraHosts = ''
       127.0.0.1 localhost.localdomain localhost
-      172.31.1.100 ${hostName}.${domain} ${hostName}
+      ${(builtins.head interfaces.enp6s0.ip4).address} ${hostName}.${domain} ${hostName}
 
       # The following lines are desirable for IPv6 capable hosts
       ::1     ip6-localhost ip6-loopback
@@ -61,28 +51,27 @@ in
       ff02::3 ip6-allhosts
     '';
 
-#    interfaces = {
-#      enp0s18.ip4 = [ { address = "10.0.0.252"; prefixLength = 8; } ];
-#    };
+    interfaces = {
+      enp6s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
+    };
 
-#    nameservers = [ "10.0.0.1" "8.8.8.8" ];
-#    defaultGateway = "10.0.0.1";
+    nameservers = [ "10.0.0.1" ];
+    defaultGateway = "10.0.0.1";
 
     firewall = {
       enable = false;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 19999 ];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [ 80 139 443 445 8384 31416 19999 ];
+      allowedUDPPorts = [ 137 138 ];
     };
 
-#    useDHCP = false;
-    useDHCP = true;
+    useDHCP = false;
   };
 
   time.timeZone = "Europe/Berlin";
   i18n = {
     consoleKeyMap = "de";
-    defaultLocale = "de_DE.UTF-8";
+    defaultLocale = "en_US.UTF-8";
   };
 
   # Monitoring
@@ -90,37 +79,46 @@ in
   services.vnstat.enable = true;
 
   # SMB Shares
-  system.activationScripts.ShareDirectoryStructure = "mkdir -p -m 0777 /data/{Backup,Bilder,Musik,Filme}";
   services.samba = {
     enable = true;
     syncPasswordsByPam = true;
     shares = {
+      Archiv = {
+        path = "/data/archiv";
+        public = false;
+        writable = true;
+      };
       Backup = {
-        path = "/data/Backup";
-        public = true;
+        path = "/data/backup";
+        public = false;
         writable = true;
       };
-      Bilder = {
-        path = "/data/Bilder";
-        public = true;
+      Media = {
+        path = "/data/media";
+        public = false;
         writable = true;
       };
-      Musik = {
-        path = "/data/Musik";
+      Upload = {
+        path = "/data/upload";
         public = true;
         writable = true;
-      };
-      Filme = {
-        path = "/data/Filme";
-        writable = true;
-        public = true;
       };
     };
     extraConfig = ''
       # login to guest if login fails
       map to guest = Bad User
+      # fix error with no printers
+      load printers = no
+      printcap name = /dev/null
+      printing = bsd
     '';
   };
+
+  # fix error in service log
+  security.pam.services.samba-smbd.limits = [
+    { domain = "*"; type = "soft"; item = "nofile"; value = 16384; }
+    { domain = "*"; type = "hard"; item = "nofile"; value = 32768; }
+  ];
 
   users.extraUsers.davidak = {
     isNormalUser = true;
@@ -128,8 +126,15 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   };
 
+  services.boinc = {
+    enable = true;
+    allowRemoteGuiRpc = true;
+  };
+
   # Packages
-  environment.systemPackages = with pkgs; [ vnstat samba bcachefs-tools ];
+  environment.systemPackages = with pkgs; [ btrfs-progs vnstat samba lm_sensors ];
+
+  nix.useSandbox = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
