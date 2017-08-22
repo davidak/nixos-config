@@ -4,21 +4,25 @@
   environment.systemPackages = with pkgs; [
     htop
     iotop
+    iftop
     wget
     curl
+    netcat-gnu
     tcpdump
     telnet
     whois
     iperf
     file
     lsof
+    lshw
     strace
+    zip
     unzip
     rsync
     screen
-    # disable while broken https://github.com/NixOS/nixpkgs/issues/26682
-    #mailutils
+    mailutils
     tree
+    pwgen
     jq
     gitAndTools.gitFull
   ];
