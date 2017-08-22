@@ -33,12 +33,13 @@ in
     };
   };
 
-  networking = rec {
+  networking = {
     hostName = "nas";
     domain = "lan";
 
     interfaces = {
       enp6s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
+      #enp7s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
     };
 
     nameservers = [ "10.0.0.1" ];
