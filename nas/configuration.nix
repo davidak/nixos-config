@@ -37,20 +37,6 @@ in
     hostName = "nas";
     domain = "lan";
 
-    # fix for missing hosts entry https://github.com/NixOS/nixpkgs/issues/1248
-    extraHosts = ''
-      127.0.0.1 localhost.localdomain localhost
-      ${(builtins.head interfaces.enp6s0.ip4).address} ${hostName}.${domain} ${hostName}
-
-      # The following lines are desirable for IPv6 capable hosts
-      ::1     ip6-localhost ip6-loopback
-      fe00::0 ip6-localnet
-      ff00::0 ip6-mcastprefix
-      ff02::1 ip6-allnodes
-      ff02::2 ip6-allrouters
-      ff02::3 ip6-allhosts
-    '';
-
     interfaces = {
       enp6s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
     };
@@ -59,7 +45,7 @@ in
     defaultGateway = "10.0.0.1";
 
     firewall = {
-      enable = false;
+      enable = true;
       allowPing = true;
       allowedTCPPorts = [ 80 139 443 445 8384 31416 19999 ];
       allowedUDPPorts = [ 137 138 ];
