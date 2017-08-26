@@ -13,7 +13,5 @@
    services.openssh = {
      enable = true;
      startWhenNeeded = true;
-     permitRootLogin = "yes";
-     passwordAuthentication = true;
    };
 }
