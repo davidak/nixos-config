@@ -1,16 +1,16 @@
-# NixOS Install Image with bcachefs support (experimental)
+# NixOS Install Image with experimental bcachefs support
 
 ## Create ISO image
 
     $ nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=/root/nixos/install-iso-bcachefs/configuration.nix
 
-Or just download ISO here: https://davidak.de/tmp/nixos-17.09.git.226a295-x86_64-linux-with-bcachefs.iso
+Or just download it here: https://davidak.de/tmp/nixos-17.09.git.226a295-x86_64-linux-with-bcachefs.iso
 
 ## Create bootable USB-drive
 
     $ dd if=result/iso/nixos-*.iso of=/dev/sdb
 
-## Install NixOS on bcachefs root FS
+## Install NixOS on bcachefs
 
 **WIP**
 
