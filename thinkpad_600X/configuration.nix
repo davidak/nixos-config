@@ -6,8 +6,8 @@
       ./hardware-configuration.nix
     ];
 
-  # use newest kernel because i'm so edgy
-  boot.kernelPackages = pkgs.linuxPackages_4_3;
+  # use latest kernel because i'm so edgy
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.grub = {
     enable = true;
     version = 2;
