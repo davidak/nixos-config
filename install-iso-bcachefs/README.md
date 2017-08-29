@@ -12,20 +12,37 @@ Or just download it here: https://davidak.de/tmp/nixos-17.09.git.226a295-x86_64-
 
 ## Install NixOS on bcachefs
 
-**WIP**
+### Create `dos` partitions
+
+- 400 MB /boot (set boot flag)
+- 1.6 GB SWAP
+- 10 GB /
 
     cfdisk /dev/sda
+
+#### Create filesystems
+
     mkfs.ext4 -L boot /dev/sda1
-    mkfs.bcachefs -L nixos /dev/sda2
+    mkswap -L swap /dev/sda2
+    mkfs.bcachefs -L nixos /dev/sda3
+
+#### Mount filesystems
+    
     mount -t bcachefs /dev/sda2 /mnt
     mkdir /mnt/boot
     mount /dev/disk/by-label/boot /mnt/boot
+    swapon /dev/disk/by-label/swap
+    
+#### Create and edit Config
+    
     nixos-generate-config --root /mnt
     nano /mnt/etc/nixos/configuration.nix
-    nix-channel --update
-    nix-env -iA nixos.gitAndTools.gitFull
-    git clone https://github.com/davidak/nixpkgs.git
-    cd nixpkgs/
-    git checkout bcachefs
-    NIX_PATH=nixpkgs=/root/nixpkgs/ nixos-install
-    history
+
+I'm not sure if `boot.supportedFilesystems = [ "bcachefs" ];` is needed but i have set it and it works.
+
+#### Install NixOS
+
+    nixos-install
+    reboot
+
+(can take more than 1 hour since the kernel is compiled)
