@@ -4,7 +4,7 @@
 
     $ nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=/root/nixos/install-iso-bcachefs/configuration.nix
 
-Or just download it here: https://davidak.de/tmp/nixos-17.09.git.226a295-x86_64-linux-with-bcachefs.iso
+Or just download it here: https://github.com/davidak/nixos-config/releases/download/1.0/nixos-17.09.git.1efca7b-x86_64-linux-with-bcachefs.iso
 
 ## Create bootable USB-drive
 
