@@ -82,7 +82,18 @@ in
   };
 
   # Monitoring
-  services.netdata.enable = true;
+  services.netdata = {
+    enable = true;
+    configText = ''
+      [global]
+      default port = 19999
+      bind to = *
+      # 1 day
+      history = 86400
+      error log = syslog
+      debug log = syslog
+    '';
+  };
   services.vnstat.enable = true;
 
   # MariaDB
