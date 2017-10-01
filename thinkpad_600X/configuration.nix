@@ -44,7 +44,7 @@
   i18n = {
     consoleFont = "lat9w-16";
     consoleKeyMap = "de";
-    defaultLocale = "de_DE.UTF-8";
+    defaultLocale = "en_US.UTF-8";
   };
 
   # System Packages
@@ -54,6 +54,7 @@
     wget
     git
     screen
+    chromium
  ];
 
   # Enable the X11 windowing system.
@@ -82,5 +83,5 @@
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "15.09";
+  system.stateVersion = "17.09";
 }
