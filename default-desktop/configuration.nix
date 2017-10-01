@@ -24,7 +24,7 @@
     defaultGateway = "10.0.0.1";
 
     firewall = {
-      enable = true;
+      enable = false;
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
@@ -90,5 +90,5 @@
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.09";
+  system.stateVersion = "17.03";
 }
