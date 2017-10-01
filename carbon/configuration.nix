@@ -61,7 +61,8 @@ in
   services.xserver.xkbOptions = "eurosign:e";
 
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.mate.enable = true;
+  #services.xserver.desktopManager.gnome3.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
 
   virtualisation.docker.enable = true;
 
@@ -70,7 +71,11 @@ in
     atom
     borgbackup
     chromium
+    #brave
     firefox
+    #hipchat
+    #nagstamon
+    #nextcloud-client
     gimp
     pitivi
     kdeApplications.kdenlive
@@ -82,11 +87,12 @@ in
     python35Packages.youtube-dl
     remmina
     gparted
+    #wire
   ];
 
   users.extraUsers.davidak = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
     uid = 1000;
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   };
