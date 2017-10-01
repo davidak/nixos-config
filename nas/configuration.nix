@@ -62,8 +62,27 @@ in
   };
 
   # Monitoring
-  services.netdata.enable = true;
+  services.netdata = {
+    enable = true;
+    configText = ''
+      [global]
+      default port = 19999
+      bind to = *
+      # 7 days
+      history = 604800
+      error log = syslog
+      debug log = syslog
+    '';
+  };
   services.vnstat.enable = true;
+
+  systemd.extraConfig = ''
+    DefaultCPUAccounting=yes
+    DefaultIOAccounting=yes
+    DefaultBlockIOAccounting=yes
+    DefaultMemoryAccounting=yes
+    DefaultTasksAccounting=yes
+  '';
 
   # SMB Shares
   services.samba = {
