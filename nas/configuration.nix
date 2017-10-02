@@ -134,6 +134,11 @@ in
 
   virtualisation.docker.enable = true;
 
+  services.syncthing = {
+    enable = true;
+    user = "syncthing";
+  };
+
   services.boinc = {
     enable = true;
     allowRemoteGuiRpc = true;

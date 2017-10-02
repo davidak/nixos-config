@@ -9,6 +9,9 @@ Features
 --------
 
 - SMB Shares
+- Syncthing
+- Docker containers
+- BOINC (distributed computing)
 - Monitoring storage devices via [S.M.A.R.T.](https://en.wikipedia.org/wiki/S.M.A.R.T.) with email notification
 - Monitoring with [netdata](https://my-netdata.io/) and [vnStat](http://humdi.net/vnstat/)
 
@@ -51,6 +54,17 @@ chmod -R 777 /data/upload/
 smbpasswd -a davidak
 passwd davidak
 ```
+
+Configure
+---------
+
+To be able to access Syncthing from your local network, you have to edit `/var/lib/syncthing/config.xml`:
+
+```
+<address>0.0.0.0:8384</address>
+```
+
+Add user and password in the webinterface to secure your data!
 
 Maintenance
 -----------
