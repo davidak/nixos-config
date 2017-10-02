@@ -132,16 +132,18 @@ in
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   };
 
+  virtualisation.docker.enable = true;
+
   services.boinc = {
     enable = true;
     allowRemoteGuiRpc = true;
   };
 
   # Packages
-  environment.systemPackages = with pkgs; [ btrfs-progs vnstat samba lm_sensors ];
+  environment.systemPackages = with pkgs; [ btrfs-progs xfsprogs vnstat samba lm_sensors ];
 
   nix.useSandbox = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.03";
+  system.stateVersion = "17.09";
 }
