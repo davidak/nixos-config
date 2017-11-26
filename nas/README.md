@@ -3,13 +3,14 @@ NixOS NAS
 
 Why buy an overpriced [NAS](https://en.wikipedia.org/wiki/Network-attached_storage), install [FreeNAS](https://freenas.org/) or [Rockstor](http://rockstor.com/) when you can setup [Samba](https://www.samba.org/) with few lines of [NixOS](http://nixos.org/) config?
 
-Project is **WORK IN PROGRESS**!
+Other features can easily be added.
 
 Features
 --------
 
 - SMB Shares
 - Syncthing
+- IPFS
 - Docker containers
 - BOINC (distributed computing)
 - Monitoring storage devices via [S.M.A.R.T.](https://en.wikipedia.org/wiki/S.M.A.R.T.) with email notification

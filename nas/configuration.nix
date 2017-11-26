@@ -48,7 +48,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 8384 31416 19999 ];
+      allowedTCPPorts = [ 80 139 443 445 6001 8384 31416 19999 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -138,6 +138,11 @@ in
   services.syncthing = {
     enable = true;
     user = "syncthing";
+  };
+
+  services.ipfs = {
+    enable = true;
+    autoMount = true;
   };
 
   services.boinc = {
