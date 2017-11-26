@@ -25,15 +25,6 @@
       enabled  = true
     '';
 
-    jails.port-scan =
-    ''
-      filter   = port-scan
-      action   = iptables-allports[name=port-scan]
-      maxretry = 2
-      bantime  = 7200
-      enabled  = true
-    '';
-
     jails.postfix =
     ''
       filter   = postfix
@@ -59,12 +50,6 @@
       enabled  = true
     '';
   };
-
-  environment.etc."fail2ban/filter.d/port-scan.conf".text =
-  ''
-    [Definition]
-    failregex = rejected connection: .* SRC=<HOST>
-  '';
 
   environment.etc."fail2ban/filter.d/postfix-ddos.conf".text =
   ''
