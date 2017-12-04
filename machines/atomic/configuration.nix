@@ -1,20 +1,15 @@
 { config, pkgs, lib, ... }:
 
 let
-  pubkey = import ../services/pubkey.nix;
-  credentials = import /root/secrets.nix;
+  pubkey = import ../../services/pubkey.nix;
+  secrets = import /root/secrets.nix;
 in
 {
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      ../services/packages.nix
-      ../services/ssh.nix
-      ../services/fail2ban.nix
-      ../services/postfix.nix
-      ../services/ntp.nix
-      ../services/vim.nix
-      ../modules/satzgenerator.nix
+      ../../profiles/server.nix
+      ../../modules/satzgenerator.nix
     ];
 
   boot.kernel.sysctl = {
@@ -257,8 +252,8 @@ in
     workers = 5;
     database = {
       host = "127.0.0.1";
-      user = credentials.satzgenerator_mysql_user;
-      password = credentials.satzgenerator_mysql_password;
+      user = secrets.satzgenerator_mysql_user;
+      password = secrets.satzgenerator_mysql_password;
       name = "satzgenerator";
     };
   };

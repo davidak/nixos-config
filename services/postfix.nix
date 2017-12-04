@@ -79,4 +79,9 @@
         -o milter_macro_daemon_name=ORIGINATING
     '';
   };
+
+  # install packages
+  environment.systemPackages = with pkgs; [
+    mailutils
+  ];
 }

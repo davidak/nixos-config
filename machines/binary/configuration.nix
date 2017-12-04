@@ -1,17 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
-  pubkey = import ../services/pubkey.nix;
+  pubkey = import ../../services/pubkey.nix;
 in
 {
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      ../services/ssh.nix
-      ../services/fail2ban.nix
-      ../services/postfix.nix
-      ../services/ntp.nix
-      ../services/vim.nix
+      ../../profiles/server.nix
     ];
 
   boot.loader.grub = {

@@ -11,7 +11,9 @@ Usage
 
 Change the boot disk and IPs according to your network.
 
-Create a `credentials.nix` and set the user and passwort for transmission.
+Create a `secrets.nix` and set the user and passwort for transmission.
 
-	cp credentials.nix.dist credentials.nix
-	vim credentials.nix
+```
+[root@atomic:~]# cp nixos-config/machines/atomic/secrets.nix.dist secrets.nix
+[root@atomic:~]# vim secrets.nix
+```

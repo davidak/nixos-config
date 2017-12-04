@@ -1,17 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
-  pubkey = import ../services/pubkey.nix;
+  pubkey = import ../../services/pubkey.nix;
 in
 {
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      ../services/fail2ban.nix
-      ../services/postfix.nix
-      ../services/ssh.nix
-      ../services/ntp.nix
-      ../services/vim.nix
+      ../../profiles/server.nix
     ];
 
   boot.loader.grub = {
@@ -24,8 +20,8 @@ in
     hostName = "web";
     domain = "lan";
 
-    interfaces = { 
-      eth0.ip4 = [ { address = "10.0.0.17"; prefixLength = 8; } ]; 
+    interfaces = {
+      eth0.ip4 = [ { address = "10.0.0.17"; prefixLength = 8; } ];
     };
 
     nameservers = [ "10.0.0.1" ];
@@ -48,15 +44,6 @@ in
     consoleKeyMap = "de";
     defaultLocale = "de_DE.UTF-8";
   };
-
-  # System Packages
-  environment.systemPackages = with pkgs; [
-    htop
-    wget
-    tree
-    mailutils
-    git
-  ];
 
   # Create all web users
   users.mutableUsers = false;
@@ -160,7 +147,7 @@ in
         root /var/www/wiki/web;
         index doku.php;
 
-        # Maximum file upload size - change accordingly if needed   
+        # Maximum file upload size - change accordingly if needed
         client_max_body_size 128M;
         client_body_buffer_size 128k;
 
@@ -175,7 +162,7 @@ in
             rewrite ^/_export/([^/]+)/(.*) /doku.php?do=export_$1&id=$2 last;
             rewrite ^/(.*) /doku.php?id=$1&$args last;
         }
-      
+
         location ~ \.php$ {
             try_files $uri $uri/ /doku.php;
             include ${pkgs.nginx}/conf/fastcgi_params;
