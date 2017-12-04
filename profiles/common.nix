@@ -6,6 +6,7 @@
       ../services/ssh.nix
       ../services/ntp.nix
       ../services/vim.nix
+      ../services/nix.nix
     ];
 
   # install basic packages
@@ -26,11 +27,18 @@
     strace
     zip
     unzip
+    sshfs
     rsync
     screen
     tree
+    dfc
     pwgen
     jq
     gitAndTools.gitFull
   ];
+
+  programs.bash.enableCompletion = true;
+
+  # copy the system configuration into nix-store
+  system.copySystemConfiguration = true;
 }
