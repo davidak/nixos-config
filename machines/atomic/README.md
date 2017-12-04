@@ -46,11 +46,11 @@ imac:Webseite davidak$ nikola build && nikola deploy
 
 #### satzgenerator.de
 
-Create a `credentials.nix` and set the user and passwort for the Satzgenerator.
+Create a `secrets.nix` and set the `user` and `password` for the Satzgenerator.
 
 ```
-cp credentials.nix.dist credentials.nix
-vim credentials.nix
+[root@atomic:~]# cp nixos-config/machines/atomic/secrets.nix.dist secrets.nix
+[root@atomic:~]# vim secrets.nix
 ```
 
 ...

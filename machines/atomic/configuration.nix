@@ -2,7 +2,7 @@
 
 let
   pubkey = import ../services/pubkey.nix;
-  credentials = import ./credentials.nix;
+  credentials = import /root/secrets.nix;
 in
 {
   imports =

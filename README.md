@@ -11,7 +11,7 @@ You can find the configurations of other people on https://nixos.wiki/wiki/Confi
 
 My workflow with this code is to `rsync` it to the machine and symlink the system configuration.
 
-	imac:code davidak$ rsync -ahz --progress nixos-config root@10.0.0.252:
+	imac:code davidak$ rsync -ah --delete --progress nixos-config root@10.0.0.252:
 	[root@nixos:~]# rm /etc/nixos/configuration.nix
 	[root@nixos:~]# ln -s /root/nixos-config/machines/web/configuration.nix /etc/nixos/configuration.nix
 	[root@nixos:~]# nixos-rebuild switch
