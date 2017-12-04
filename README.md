@@ -19,3 +19,25 @@ My workflow with this code is to `rsync` it to the machine and symlink the syste
 This way i can test a change before committing it to the git repository.
 
 For new machines i use the default configuration and extend it as needed.
+
+## Structure
+
+### machines
+
+Here are the `configuration.nix` files for my machines. See the `README` for detailed description.
+
+### modules
+
+My private NixOS modules.
+
+### packages
+
+My private Nix packages.
+
+### profiles
+
+Options for specific domains like `server`, `desktop` or `video-production`.
+
+### services
+
+Default service configurations.
