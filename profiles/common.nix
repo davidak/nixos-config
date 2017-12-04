@@ -1,6 +1,14 @@
 { config, pkgs, ... }:
 
 {
+  imports =
+    [
+      ../services/ssh.nix
+      ../services/ntp.nix
+      ../services/vim.nix
+    ];
+
+  # install basic packages
   environment.systemPackages = with pkgs; [
     htop
     iotop
@@ -11,7 +19,7 @@
     tcpdump
     telnet
     whois
-    iperf
+    mtr
     file
     lsof
     lshw
@@ -20,7 +28,6 @@
     unzip
     rsync
     screen
-    mailutils
     tree
     pwgen
     jq
