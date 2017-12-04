@@ -1,2 +1,0 @@
-Minimal NixOS Configuration
-===========================
