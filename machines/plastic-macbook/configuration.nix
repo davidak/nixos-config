@@ -58,9 +58,12 @@
   services.xserver.videoDrivers = [ "intel" ];
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
-  # enable Xfce desktop
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  # use SLiM login manager
+  services.xserver.displayManager.slim.enable = true;
+  services.xserver.displayManager.slim.defaultUser = "davidak";
+
+  # use i3 tiling window manager
+  services.xserver.windowManager.i3.enable = true;
 
   # mac keyboard layout
   services.xserver.xkbModel = "apple_laptop";
