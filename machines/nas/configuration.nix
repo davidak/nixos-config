@@ -43,7 +43,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 6001 8384 31416 19999 ];
+      allowedTCPPorts = [ 80 139 443 445 6001 8384 31416 19999 22000 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
