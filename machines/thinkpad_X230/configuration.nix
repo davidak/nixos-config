@@ -6,6 +6,7 @@
       /etc/nixos/hardware-configuration.nix
       ../../profiles/notebook.nix
       ./x230.nix
+      #../../services/bluetooth.nix
       ../../profiles/desktop.nix
     ];
 
