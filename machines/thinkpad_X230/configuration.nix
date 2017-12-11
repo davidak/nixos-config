@@ -56,12 +56,10 @@
 
   # use lightdm login manager
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.default      = "none";
-  services.xserver.windowManager.default       = "i3";
   services.xserver.desktopManager.xterm.enable = false;
 
-  # use i3 tiling window manager
-  services.xserver.windowManager.i3.enable = true;
+  # use Xfce desktop
+  services.xserver.desktopManager.xfce.enable = true;
 
   # english locales, german keyboard layout
   i18n = {

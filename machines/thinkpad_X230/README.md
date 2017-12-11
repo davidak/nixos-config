@@ -5,4 +5,4 @@ The notebook will use [coreboot](https://www.coreboot.org/) as BIOS/UEFI replace
 
 ## Features
 
-- i3 window manager
+- Xfce desktop
