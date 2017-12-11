@@ -19,6 +19,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; [
     atom
+    meld
     borgbackup
     chromium
     firefox
