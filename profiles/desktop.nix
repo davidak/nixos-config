@@ -26,7 +26,9 @@ in
     keepassx-community
     libreoffice
     mediathekview
+    vlc
     simplescreenrecorder
+    gnome3.cheese
     python35Packages.xkcdpass
     python35Packages.youtube-dl
     remmina
