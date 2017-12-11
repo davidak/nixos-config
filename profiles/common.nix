@@ -3,10 +3,12 @@
 {
   imports =
     [
+      ../services/grub.nix
       ../services/ssh.nix
       ../services/ntp.nix
       ../services/vim.nix
       ../services/nix.nix
+      ../services/localization.nix
     ];
 
   # install basic packages

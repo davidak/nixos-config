@@ -10,6 +10,12 @@ in
       ../services/xfce.nix
     ];
 
+  # boot splash instead of log messages
+  boot.plymouth.enable = true;
+
+  # enable audio support
+  hardware.pulseaudio.enable = true;
+
   # install packages
   environment.systemPackages = with pkgs; [
     atom
