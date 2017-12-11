@@ -7,6 +7,7 @@ in
   imports =
     [
       ./common.nix
+      ../services/xfce.nix
     ];
 
   # install packages

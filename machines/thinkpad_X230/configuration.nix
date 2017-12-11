@@ -36,30 +36,12 @@
     domain = "lan";
 
     firewall.enable = false;
-    wireless = {
-      enable = true;
-      networks = {
-        Altenheim = {
-          psk = "ad82651243010c842c7ce24a26271c423e07eb0089836e32df997d0c17510fa2";
-        };
-      };
-    };
-    useDHCP = true;
   };
 
-  # enable the X11 windowing system
-  services.xserver.enable = true;
 
   # intel video driver
   services.xserver.videoDrivers = [ "intel" ];
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-
-  # use lightdm login manager
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
-
-  # use Xfce desktop
-  services.xserver.desktopManager.xfce.enable = true;
 
   # english locales, german keyboard layout
   i18n = {
