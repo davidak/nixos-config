@@ -10,14 +10,7 @@ in
       ../../profiles/server.nix
     ];
 
-  boot = {
-    loader.grub = {
-      enable = true;
-      version = 2;
-      device = "/dev/sda";
-    };
-    cleanTmpDir = true;
-  };
+  boot.loader.grub.device = "/dev/sda";
 
   services.smartd = {
     enable = true;
@@ -49,12 +42,6 @@ in
     };
 
     useDHCP = false;
-  };
-
-  time.timeZone = "Europe/Berlin";
-  i18n = {
-    consoleKeyMap = "de";
-    defaultLocale = "en_US.UTF-8";
   };
 
   # Monitoring
