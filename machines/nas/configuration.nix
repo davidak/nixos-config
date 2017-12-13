@@ -36,7 +36,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 6001 8384 31416 19999 22000 ];
+      allowedTCPPorts = [ 80 139 443 445 6001 8384 9000 31416 19999 22000 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -108,6 +108,13 @@ in
     { domain = "*"; type = "soft"; item = "nofile"; value = 16384; }
     { domain = "*"; type = "hard"; item = "nofile"; value = 32768; }
   ];
+
+  # S3 compatible Object Storage
+  services.minio = {
+    enable = true;
+    dataDir = "/data/minio";
+    region = "eu-central-1";
+  };
 
   users.extraUsers.davidak = {
     isNormalUser = true;

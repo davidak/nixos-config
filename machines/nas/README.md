@@ -9,6 +9,7 @@ Features
 --------
 
 - SMB Shares
+- Amazon S3 compatible Object Storage ([Minio](https://www.minio.io/))
 - Syncthing
 - IPFS
 - Docker containers
@@ -46,10 +47,10 @@ btrfs subvolume create /data/archiv
 btrfs subvolume create /data/backup
 btrfs subvolume create /data/upload
 btrfs subvolume create /data/snapshots
+btrfs subvolume create /data/minio
 
 mkdir /data/snapshots/{archiv,backup,media,upload}
-chown davidak:users -R /data/
-chmod 700 /data/*
+chown davidak:users -R /data/*
 chmod -R 777 /data/upload/
 
 smbpasswd -a davidak
@@ -114,7 +115,7 @@ Maintenance
 
 or for every subvolume at once
 
-    [root@nas:~]# for i in archiv backup media upload; do btrfs subvolume snapshot -r /data/$i /data/snapshots/$i/$(date -I); done
+    [root@nas:~]# for i in archiv backup media upload minio; do btrfs subvolume snapshot -r /data/$i /data/snapshots/$i/$(date -I); done
     Create a readonly snapshot of '/data/archiv' in '/data/snapshots/archiv/2017-07-31'
     Create a readonly snapshot of '/data/backup' in '/data/snapshots/backup/2017-07-31'
     Create a readonly snapshot of '/data/media' in '/data/snapshots/media/2017-07-31'
