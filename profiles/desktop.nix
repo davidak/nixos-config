@@ -20,7 +20,7 @@ in
   environment.systemPackages = with pkgs; [
     atom
     meld
-    borgbackup
+    restic
     chromium
     firefox
     keepassx-community
@@ -34,6 +34,7 @@ in
     remmina
     virtualbox
     gparted
+    cifs-utils
   ];
 
   virtualisation.docker.enable = true;

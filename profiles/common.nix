@@ -25,7 +25,6 @@
     mtr
     file
     lsof
-    lshw
     strace
     zip
     unzip
