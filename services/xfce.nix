@@ -9,5 +9,5 @@
 
   networking.networkmanager.enable = true;
 
-  environment.systemPackages = with pkgs; [ networkmanagerapplet greybird ];
+  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 }

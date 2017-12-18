@@ -8,6 +8,7 @@ in
     [
       ./common.nix
       ../services/xfce.nix
+      ../services/elementary.nix
     ];
 
   # boot splash instead of log messages
