@@ -9,5 +9,8 @@
 
   networking.networkmanager.enable = true;
 
-  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
+  environment.systemPackages = with pkgs; [
+    networkmanagerapplet
+    xfce.xfce4-hardware-monitor-plugin
+  ];
 }
