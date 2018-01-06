@@ -12,16 +12,12 @@ in
       ../../modules/satzgenerator.nix
     ];
 
+  boot.loader.grub.device = "/dev/sda";
+
   boot.kernel.sysctl = {
     # recommended by mysqltuner
     "vm.swappiness" = 10;
     "fs.aio-max-nr" = 1048576;
-  };
-
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/sda";
   };
 
   networking = rec {
@@ -32,11 +28,11 @@ in
     domain = "davidak.de";
 
     interfaces = {
-      enp0s3.ip4 = [
+      ens3.ip4 = [
         # external 138.201.246.37
         { address = "172.31.1.100"; prefixLength = 24; }
       ];
-      enp0s3.ip6 = [
+      ens3.ip6 = [
         # davidak
         { address = "2a01:04f8:0c17:5c0e::1"; prefixLength = 64; }
         # aquaregia
@@ -55,8 +51,8 @@ in
     };
 
     nameservers = [ "213.133.99.99" "213.133.98.98" "213.133.100.100" ];
-    defaultGateway = "172.31.1.1";
-    defaultGateway6 = "fe80::1";
+    defaultGateway = { address = "172.31.1.1"; interface = "ens3"; };
+    defaultGateway6 = { address = "fe80::1"; interface = "ens3"; };
 
     firewall = {
       enable = true;
@@ -66,14 +62,6 @@ in
     };
 
     useDHCP = false;
-  };
-
-  # Localization
-  time.timeZone = "Europe/Berlin";
-  i18n = {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "de";
-    defaultLocale = "en_US.UTF-8";
   };
 
   # Monitoring
@@ -112,9 +100,8 @@ in
   services.mysqlBackup = {
     enable = true;
     databases = [ "mysql" "piwik" "satzgenerator" ];
-    location = "/var/backup/mysql";
     user = "root";
-    period = "0 4 * * *";
+    calendar = "04:00:00";
     singleTransaction = true;
   };
 
@@ -276,5 +263,5 @@ in
   environment.systemPackages = with pkgs; [ vnstat php ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.03";
+  system.stateVersion = "17.09";
 }
