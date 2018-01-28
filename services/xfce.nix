@@ -12,5 +12,6 @@
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
     xfce.xfce4-hardware-monitor-plugin
+    xfce.gvfs
   ];
 }
