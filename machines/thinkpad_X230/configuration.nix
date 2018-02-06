@@ -3,10 +3,10 @@
 {
   imports =
     [
+      <nixos-hardware/lenovo/thinkpad/x230>
       /etc/nixos/hardware-configuration.nix
       ../../profiles/hardware.nix
       ../../profiles/notebook.nix
-      ./x230.nix
       #../../services/bluetooth.nix
       ../../profiles/desktop.nix
       ../../profiles/communication.nix
@@ -24,8 +24,6 @@
   # no access time and continuous TRIM for SSD
   fileSystems."/".options = [ "noatime" "discard" ];
   fileSystems."/boot".options = [ "noatime" "discard" ];
-
-  hardware.cpu.intel.updateMicrocode = true;
 
   networking = {
     hostName = "X230";
