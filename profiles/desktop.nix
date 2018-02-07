@@ -32,10 +32,10 @@ in
     gnome3.cheese
     python35Packages.xkcdpass
     python35Packages.youtube-dl
+    asciinema
     remmina
     virtualbox
     gparted
-    cifs-utils
   ];
 
   virtualisation.docker.enable = true;

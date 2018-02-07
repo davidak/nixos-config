@@ -18,7 +18,6 @@
     iftop
     wget
     curl
-    netcat-gnu
     tcpdump
     telnet
     whois
@@ -26,6 +25,8 @@
     file
     lsof
     strace
+    xz
+    lz4
     zip
     unzip
     sshfs
