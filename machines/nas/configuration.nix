@@ -8,6 +8,7 @@ in
     [
       /etc/nixos/hardware-configuration.nix
       ../../profiles/server.nix
+      ../../services/avahi-server.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";

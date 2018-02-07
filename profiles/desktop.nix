@@ -9,6 +9,7 @@ in
       ./common.nix
       ../services/xfce.nix
       ../services/elementary.nix
+      ../services/avahi-client.nix
     ];
 
   # boot splash instead of log messages
