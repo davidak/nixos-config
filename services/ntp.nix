@@ -2,8 +2,8 @@
 
 {
   services.ntp.enable = false;
-  
-  services.chrony = {
+
+  services.timesyncd = {
     enable = true;
     servers = [
       "0.de.pool.ntp.org"
