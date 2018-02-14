@@ -35,10 +35,16 @@ in
     python35Packages.youtube-dl
     asciinema
     remmina
+    virtmanager
     gparted
   ];
 
+  # container virtualization
   virtualisation.docker.enable = true;
+
+  # hypervisor virtualization
+  boot.kernelModules = [ "kvm-intel" ];
+  virtualisation.libvirtd.enable = true;
 
   users.extraUsers.davidak = {
     isNormalUser = true;
