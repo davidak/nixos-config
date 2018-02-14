@@ -35,7 +35,6 @@ in
     python35Packages.youtube-dl
     asciinema
     remmina
-    virtualbox
     gparted
   ];
 
