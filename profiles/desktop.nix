@@ -43,12 +43,14 @@ in
   virtualisation.docker.enable = true;
 
   # hypervisor virtualization
-  boot.kernelModules = [ "kvm-intel" ];
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    enableKVM = true;
+  };
 
   users.extraUsers.davidak = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" "libvirtd" ];
     openssh.authorizedKeys.keys = [ pubkey.davidak ];
   };
 
