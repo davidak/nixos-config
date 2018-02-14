@@ -10,6 +10,7 @@
       #../../services/bluetooth.nix
       ../../profiles/desktop.nix
       ../../profiles/communication.nix
+      ../../profiles/gaming.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
