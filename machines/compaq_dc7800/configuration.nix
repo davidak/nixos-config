@@ -13,7 +13,7 @@
   boot.initrd.luks.devices = [
     {
       name = "root";
-      device = "/dev/disk/by-uuid/bb4ef5af-9645-4b5c-85ad-04c21b9c91e6";
+      device = "/dev/disk/by-uuid/abd7e9a8-2f15-4ada-a2a7-66161c1994f2";
       preLVM = true;
       allowDiscards = true;
     }
@@ -24,7 +24,10 @@
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
   hardware.cpu.intel.updateMicrocode = true;
-  services.xserver.videoDrivers = [ "radeon" ];
+  #services.xserver.videoDrivers = [ "radeon" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.driSupport32Bit = true;
+  nixpkgs.config.allowUnfree = true;
 
   networking = {
     hostName = "dc7800";
@@ -34,5 +37,5 @@
   };
 
   # compatible NixOS release
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
