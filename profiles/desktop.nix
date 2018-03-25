@@ -37,7 +37,14 @@ in
     remmina
     virtmanager
     gparted
+    screenfetch
   ];
+
+  nixpkgs.config = {
+    firefox = {
+     enableAdobeFlash = true;
+    };
+  };
 
   # container virtualization
   virtualisation.docker.enable = true;
