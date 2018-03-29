@@ -8,5 +8,7 @@
     #wire
     # mail
     thunderbird
+    gnupg
+    gpa
   ];
 }
