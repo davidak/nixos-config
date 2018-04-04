@@ -19,7 +19,7 @@ in
   hardware.pulseaudio.enable = true;
 
   # install packages
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with gnome3; [
     atom
     meld
     restic
@@ -29,13 +29,19 @@ in
     libreoffice
     mediathekview
     vlc
+    pavucontrol
     simplescreenrecorder
-    gnome3.cheese
+    cheese
+    nautilus
+    sushi
+    eog
+    evince
     python35Packages.xkcdpass
     python35Packages.youtube-dl
     asciinema
     remmina
     virtmanager
+    dconf-editor
     gparted
     screenfetch
   ];
