@@ -10,6 +10,7 @@
       #../../services/bluetooth.nix
       ../../profiles/desktop.nix
       ../../profiles/communication.nix
+      ../../profiles/video-production.nix
       ../../profiles/gaming.nix
     ];
 
