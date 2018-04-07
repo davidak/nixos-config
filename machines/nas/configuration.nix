@@ -27,7 +27,7 @@ in
     domain = "lan";
 
     interfaces = {
-      enp6s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
+      enp6s0.ipv4.addresses = [ { address = "10.0.0.4"; prefixLength = 8; } ];
       #enp7s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
     };
 
@@ -37,7 +37,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 6001 8384 9000 31416 19999 22000 ];
+      allowedTCPPorts = [ 80 139 443 445 5000 5001 8080 8384 9000 31416 19999 22000 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -132,7 +132,10 @@ in
 
   services.ipfs = {
     enable = true;
+    swarmAddress = [ "/ip4/0.0.0.0/tcp/5000" "/ip6/::/tcp/5000" ];
+    gatewayAddress = "/ip4/0.0.0.0/tcp/8080";
     autoMount = true;
+    enableGC = true;
   };
 
   services.boinc = {
@@ -146,5 +149,5 @@ in
   nix.useSandbox = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
