@@ -16,6 +16,7 @@ in
   boot.plymouth.enable = true;
 
   # enable audio support
+  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # install packages
@@ -28,7 +29,8 @@ in
     keepassx-community
     libreoffice
     mediathekview
-    vlc
+    #vlc
+    gnome-mpv
     pavucontrol
     simplescreenrecorder
     cheese
@@ -58,7 +60,7 @@ in
   # hypervisor virtualization
   virtualisation.libvirtd = {
     enable = true;
-    enableKVM = true;
+    qemuPackage = pkgs.qemu_kvm;
   };
 
   users.extraUsers.davidak = {
