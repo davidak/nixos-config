@@ -5,9 +5,8 @@
 
   # install packages
   environment.systemPackages = with pkgs; [
-    greybird
-    #elementary-gtk-theme
-    #elementary-xfce-icon-theme
+    elementary-gtk-theme
+    elementary-xfce-icon-theme
     pantheon.pantheon-terminal
   ];
 }
