@@ -26,10 +26,15 @@ in
     hostName = "nas";
     domain = "lan";
 
-    interfaces = {
-      enp6s0.ipv4.addresses = [ { address = "10.0.0.4"; prefixLength = 8; } ];
-      #enp7s0.ip4 = [ { address = "10.0.0.4"; prefixLength = 8; } ];
+    bonds.bond0 = {
+      interfaces = [ "enp6s0" "enp7s0" ];
+      driverOptions = {
+        mode = "balance-rr";
+        miimon = "100";
+      };
     };
+
+    interfaces.bond0.ipv4.addresses = [ { address = "10.0.0.4"; prefixLength = 8; } ];
 
     nameservers = [ "10.0.0.1" ];
     defaultGateway = "10.0.0.1";
