@@ -77,6 +77,15 @@ in
       debug log = syslog
     '';
   };
+  #systemd.enableCgroupAccounting = true;
+  # workaround until 18.09
+  systemd.extraConfig = ''
+    DefaultCPUAccounting=yes
+    DefaultIOAccounting=yes
+    DefaultBlockIOAccounting=yes
+    DefaultMemoryAccounting=yes
+    DefaultTasksAccounting=yes
+  '';
   services.vnstat.enable = true;
 
   # MariaDB
