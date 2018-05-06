@@ -246,11 +246,6 @@ in
     };
   };
 
-  services.boinc = {
-    enable = true;
-    allowRemoteGuiRpc = true;
-  };
-
   # Cron
   services.cron = {
     enable = true;
