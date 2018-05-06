@@ -28,11 +28,11 @@ in
     domain = "davidak.de";
 
     interfaces = {
-      ens3.ip4 = [
+      ens3.ipv4.addresses = [
         # external 138.201.246.37
         { address = "172.31.1.100"; prefixLength = 24; }
       ];
-      ens3.ip6 = [
+      ens3.ipv6.addresses = [
         # davidak
         { address = "2a01:04f8:0c17:5c0e::1"; prefixLength = 64; }
         # aquaregia
@@ -264,5 +264,5 @@ in
   environment.systemPackages = with pkgs; [ vnstat php ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
