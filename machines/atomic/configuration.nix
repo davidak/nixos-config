@@ -264,6 +264,14 @@ in
     ];
   };
 
+  services.ipfs = {
+    enable = true;
+    swarmAddress = [ "/ip4/0.0.0.0/tcp/5000" "/ip6/::/tcp/5000" ];
+    gatewayAddress = "/ip4/127.0.0.1/tcp/8080";
+    autoMount = true;
+    enableGC = true;
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [ vnstat php ];
 
