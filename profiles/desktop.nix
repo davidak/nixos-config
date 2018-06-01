@@ -46,11 +46,12 @@ in
     dconf-editor
     gparted
     screenfetch
+    twemoji-color-font
   ];
 
   nixpkgs.config = {
     firefox = {
-     enableAdobeFlash = true;
+      enableAdobeFlash = true;
     };
   };
 
