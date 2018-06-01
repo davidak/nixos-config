@@ -8,5 +8,6 @@
     lshw
     usbutils
     pciutils
+    lm_sensors
   ];
 }

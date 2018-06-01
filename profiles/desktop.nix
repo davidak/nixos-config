@@ -22,6 +22,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; with gnome3; [
     atom
+    ghex
     meld
     restic
     chromium
@@ -29,7 +30,6 @@ in
     keepassx-community
     libreoffice
     mediathekview
-    #vlc
     gnome-mpv
     pavucontrol
     simplescreenrecorder

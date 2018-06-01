@@ -10,5 +10,7 @@
     thunderbird
     gnupg
     gpa
+    # rss/atom reader
+    liferea
   ];
 }

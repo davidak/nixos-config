@@ -22,6 +22,7 @@
     telnet
     whois
     mtr
+    siege
     file
     lsof
     strace
@@ -29,7 +30,6 @@
     lz4
     zip
     unzip
-    sshfs
     rsync
     screen
     tree
