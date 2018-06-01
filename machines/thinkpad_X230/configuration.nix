@@ -7,7 +7,6 @@
       /etc/nixos/hardware-configuration.nix
       ../../profiles/hardware.nix
       ../../profiles/notebook.nix
-      #../../services/bluetooth.nix
       ../../profiles/desktop.nix
       ../../profiles/communication.nix
       ../../profiles/video-production.nix

@@ -1,11 +1,11 @@
 My NixOS Configurations
 =======================
 
-NixOS is an awesome GNU/Linux distribution. You can learn more on [it's website](https://nixos.org/nixos/about.html).
+NixOS is an awesome GNU/Linux distribution. You can learn more on [nixos.org](https://nixos.org/nixos/about.html).
 
 In this repository are the configurations of my NixOS machines.
 
-You can find the configurations from other people on https://nixos.wiki/wiki/Configuration_Collection
+You can find the configurations from other people in the [nixos.wiki](https://nixos.wiki/wiki/Configuration_Collection).
 
 ## Usage
 

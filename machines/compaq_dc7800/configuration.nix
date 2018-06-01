@@ -24,7 +24,6 @@
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
   hardware.cpu.intel.updateMicrocode = true;
-  #services.xserver.videoDrivers = [ "radeon" ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.driSupport32Bit = true;
   nixpkgs.config.allowUnfree = true;
