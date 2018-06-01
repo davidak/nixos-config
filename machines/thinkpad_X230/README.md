@@ -5,7 +5,7 @@ The notebook will use [coreboot](https://www.coreboot.org/) as BIOS/UEFI replace
 
 ## Features
 
-- Xfce desktop
+- GNOME 3 desktop
 
 ## Configuration
 

@@ -7,7 +7,8 @@ in
   imports =
     [
       ./common.nix
-      ../services/xfce.nix
+      #../services/xfce.nix
+      ../services/gnome.nix
       ../services/elementary.nix
       ../services/avahi-client.nix
     ];
