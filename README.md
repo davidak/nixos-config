@@ -41,11 +41,11 @@ Here are the `configuration.nix` files for my machines. See the `README` for det
 
 ### modules
 
-My private NixOS modules.
+My personal NixOS modules.
 
 ### packages
 
-My private Nix packages.
+My personal Nix packages.
 
 ### profiles
 

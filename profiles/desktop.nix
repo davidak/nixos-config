@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  pubkey = import ../services/pubkey.nix;
-in
 {
   imports =
     [
@@ -30,7 +27,6 @@ in
     firefox
     keepassx-community
     libreoffice
-    mediathekview
     gnome-mpv
     pavucontrol
     simplescreenrecorder
@@ -43,37 +39,9 @@ in
     python35Packages.youtube-dl
     asciinema
     remmina
-    virtmanager
     dconf-editor
     gparted
     screenfetch
     twemoji-color-font
   ];
-
-  nixpkgs.config = {
-    firefox = {
-      enableAdobeFlash = true;
-    };
-  };
-
-  # container virtualization
-  virtualisation.docker.enable = true;
-
-  # hypervisor virtualization
-  virtualisation.libvirtd = {
-    enable = true;
-    qemuPackage = pkgs.qemu_kvm;
-  };
-
-  users.extraUsers.davidak = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" "libvirtd" ];
-    openssh.authorizedKeys.keys = [ pubkey.davidak ];
-  };
-
-  services.syncthing = {
-    enable = true;
-    user = "davidak";
-    dataDir = "/home/davidak/.syncthing";
-  };
 }

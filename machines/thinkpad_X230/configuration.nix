@@ -8,6 +8,7 @@
       ../../profiles/hardware.nix
       ../../profiles/notebook.nix
       ../../profiles/desktop.nix
+      ../../profiles/personal.nix
       ../../profiles/communication.nix
       ../../profiles/video-production.nix
       ../../profiles/gaming.nix
