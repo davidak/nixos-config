@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
 {
   imports =
     [
@@ -31,6 +34,8 @@
     zip
     unzip
     rsync
+    unstable.dit
+    unstable.tealdeer
     screen
     tree
     dfc
