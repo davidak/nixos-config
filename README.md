@@ -16,9 +16,22 @@ My workflow with this code is to `rsync` it to the machine and symlink the syste
 	[root@nixos:~]# ln -s /root/nixos/machines/compaq_dc7800/configuration.nix /etc/nixos/configuration.nix
 	[root@nixos:~]# nixos-rebuild switch
 
-This way i can test a change before committing it to the git repository.
+This way i can test a change before committing it to the git repository. To update the configuration, just use the first and last command.
 
 For new machines i use the default configuration and extend it as needed.
+
+I use the `stable` channel to have a stable system, the `unstable` channel to get the latest version for some packages and `hardware` channel for hardware specific fixes.
+
+	[root@nixos:~]# nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+	[root@nixos:~]# nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+	[root@nixos:~]# nix-channel --update
+
+(execute as root or with sudo)
+
+References:
+
+- https://nixos.wiki/wiki/FAQ#How_can_I_install_a_package_from_unstable_while_remaining_on_the_stable_channel.3F
+- https://github.com/NixOS/nixos-hardware
 
 ## Structure
 
