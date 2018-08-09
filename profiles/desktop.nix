@@ -35,6 +35,7 @@
     sushi
     eog
     evince
+    gimp
     python35Packages.xkcdpass
     python35Packages.youtube-dl
     asciinema
