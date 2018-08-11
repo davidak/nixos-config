@@ -36,8 +36,8 @@
     eog
     evince
     gimp
-    python35Packages.xkcdpass
-    python35Packages.youtube-dl
+    python3Packages.xkcdpass
+    python3Packages.youtube-dl
     asciinema
     remmina
     dconf-editor
