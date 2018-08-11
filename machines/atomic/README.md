@@ -37,6 +37,7 @@ $ mysqladmin -u root password newpass
 ```
 git clone https://github.com/davidak/aww.git /var/www/aww/web/
 chown aww:users -R /var/www/aww/web/
+systemctl restart caddy.service
 ```
 
 #### davidak.de
