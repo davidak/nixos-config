@@ -8,6 +8,7 @@
     lshw
     usbutils
     pciutils
+    dmidecode
     lm_sensors
   ];
 }

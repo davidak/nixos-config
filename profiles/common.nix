@@ -28,6 +28,7 @@ in
     siege
     file
     lsof
+    inotify-tools
     strace
     xz
     lz4
@@ -41,6 +42,7 @@ in
     dfc
     pwgen
     jq
+    yq
     gitAndTools.gitFull
   ];
 
