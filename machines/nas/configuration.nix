@@ -7,6 +7,7 @@ in
   imports =
     [
       /etc/nixos/hardware-configuration.nix
+      ../../profiles/hardware.nix
       ../../profiles/server.nix
       ../../services/avahi-server.nix
     ];
@@ -149,7 +150,7 @@ in
   };
 
   # Packages
-  environment.systemPackages = with pkgs; [ btrfs-progs xfsprogs vnstat samba lm_sensors ];
+  environment.systemPackages = with pkgs; [ btrfs-progs xfsprogs vnstat samba lm_sensors python3Packages.youtube-dl ];
 
   nix.useSandbox = true;
 
