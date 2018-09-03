@@ -49,7 +49,7 @@ btrfs subvolume create /data/upload
 btrfs subvolume create /data/snapshots
 btrfs subvolume create /data/minio
 
-mkdir /data/snapshots/{archiv,backup,media,upload}
+mkdir /data/snapshots/{archiv,backup,media,minio,upload}
 chown davidak:users -R /data/*
 chmod -R 777 /data/upload/
 
@@ -115,11 +115,45 @@ Maintenance
 
 or for every subvolume at once
 
-    [root@nas:~]# for i in archiv backup media upload minio; do btrfs subvolume snapshot -r /data/$i /data/snapshots/$i/$(date -I); done
+    [root@nas:~]# for i in archiv backup media minio upload; do btrfs subvolume snapshot -r /data/$i /data/snapshots/$i/$(date -I); done
     Create a readonly snapshot of '/data/archiv' in '/data/snapshots/archiv/2017-07-31'
     Create a readonly snapshot of '/data/backup' in '/data/snapshots/backup/2017-07-31'
     Create a readonly snapshot of '/data/media' in '/data/snapshots/media/2017-07-31'
+    Create a readonly snapshot of '/data/minio' in '/data/snapshots/minio/2017-07-31'
     Create a readonly snapshot of '/data/upload' in '/data/snapshots/upload/2017-07-31'
+
+### remove snapshots
+
+List the snapshots:
+
+    [root@nas:~]# btrfs subvolume list -s /data/
+    ID 5162 gen 9413 cgen 9413 top level 5161 otime 2017-07-31 08:33:04 path snapshots/archiv/2017-07-31
+    ID 5163 gen 9414 cgen 9414 top level 5161 otime 2017-07-31 08:33:05 path snapshots/backup/2017-07-31
+    ID 5164 gen 9415 cgen 9415 top level 5161 otime 2017-07-31 08:33:05 path snapshots/media/2017-07-31
+    ID 5165 gen 9416 cgen 9416 top level 5161 otime 2017-07-31 08:33:07 path snapshots/upload/2017-07-31
+
+With [btrfs-du](https://github.com/nachoparker/btrfs-du/) you can see how much space the snapshots use:
+
+    [root@nas:~]# ./btrfs-du /data
+    INFO: Quota is disabled. Waiting for rescan to finish ...
+    Subvolume                                                         Total  Exclusive  ID        
+    ─────────────────────────────────────────────────────────────────────────────────────────
+    media                                                           2.57TiB  712.63GiB  258       
+    archiv                                                          1.86TiB    1.86TiB  259       
+    backup                                                        434.26GiB  434.26GiB  260       
+    upload                                                          8.12MiB    8.08MiB  261       
+    snapshots                                                      16.00KiB   16.00KiB  5161      
+    snapshots/backup/2017-07-31                                    16.00KiB   16.00KiB  5163      
+    snapshots/media/2017-07-31                                      1.91TiB   42.15GiB  5164      
+    snapshots/upload/2017-07-31                                    64.00KiB   16.00KiB  5165      
+    minio                                                         835.97GiB  835.97GiB  5353      
+    ─────────────────────────────────────────────────────────────────────────────────────────
+    Total exclusive data                                                            3.84TiB
+
+Then delete every snapshot you don't need anymore:
+
+    [root@nas:~]# btrfs subvolume delete /data/snapshots/archiv/2017-07-31
+    Delete subvolume (no-commit): '/data/snapshots/archiv/2017-07-31'
 
 Resources
 ---------
