@@ -34,6 +34,11 @@
     firewall.enable = false;
   };
 
+  # install packages
+  environment.systemPackages = with pkgs; [
+    electrum
+  ];
+
   # compatible NixOS release
   system.stateVersion = "18.03";
 }
