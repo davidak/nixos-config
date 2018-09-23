@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
 {
   imports =
     [
@@ -44,5 +47,6 @@
     gparted
     screenfetch
     twemoji-color-font
+    unstable.appimage-run
   ];
 }
