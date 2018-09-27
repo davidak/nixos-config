@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   unstable = import <nixos-unstable> {};
@@ -13,6 +13,9 @@ in
       ../services/nix.nix
       ../services/localization.nix
     ];
+
+  # mount tmpfs on /tmp
+  boot.tmpOnTmpfs = lib.mkDefault true;
 
   # install basic packages
   environment.systemPackages = with pkgs; [
