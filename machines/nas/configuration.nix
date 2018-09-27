@@ -14,15 +14,6 @@ in
 
   boot.loader.grub.device = "/dev/sda";
 
-  services.smartd = {
-    enable = true;
-    notifications = {
-      mail.enable = true;
-      wall.enable = false;
-      #test = true;
-    };
-  };
-
   networking = {
     hostName = "nas";
     domain = "lan";
