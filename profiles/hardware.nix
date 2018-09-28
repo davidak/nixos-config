@@ -21,5 +21,6 @@
     pciutils
     dmidecode
     lm_sensors
+    smartmontools
   ];
 }
