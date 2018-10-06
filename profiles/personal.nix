@@ -31,8 +31,6 @@ in
     openssh.authorizedKeys.keys = lib.mkDefault [ pubkey.davidak ];
   };
 
-  users.extraUsers.root.openssh.authorizedKeys.keys = lib.mkDefault [ pubkey.davidak ];
-
   services.syncthing = {
     enable = true;
     user = "davidak";
