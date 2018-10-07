@@ -47,6 +47,6 @@ in
     gparted
     screenfetch
     twemoji-color-font
-    unstable.appimage-run
+    appimage-run
   ];
 }

@@ -6,10 +6,8 @@ in
 {
   # for an elementary OS like experience
 
-  # use new bamf package from unstable; needed by plank
-  #services.bamf.enable = true;
-  services.dbus.packages = [ unstable.bamf ];
-  systemd.packages = [ unstable.bamf ];
+  # bamf service needed by plank
+  services.bamf.enable = true;
 
   # install packages
   environment.systemPackages = with pkgs; [
@@ -20,6 +18,6 @@ in
     # select as icon theme
     elementary-xfce-icon-theme
     pantheon.pantheon-terminal
-    unstable.plank
+    plank
   ];
 }

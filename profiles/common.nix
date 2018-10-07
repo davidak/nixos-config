@@ -38,8 +38,8 @@ in
     zip
     unzip
     rsync
-    unstable.dit
-    unstable.tealdeer
+    dit
+    tealdeer
     screen
     tree
     dfc
