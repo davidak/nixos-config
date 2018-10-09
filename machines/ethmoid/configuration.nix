@@ -48,6 +48,14 @@
   }
   )];
 
+  # user for GSM scan test
+  services.openssh.passwordAuthentication = true;
+  users.extraUsers.scanuser = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhvY8BPq1t9tHc874rdp6AyxxTFHajYGjl+Oh0HQ41sEMEGibDUHQRuOFPI6pO8XOEm+YvHWzWawzk7JBJXXPhHNdcEsjeHV4nVqmaCddGHRtTIgEjXBeZiaeiCo07SBYEZ3L6M/6CuL4AJZEc5EbGeTr4VRPpf/jO66MKjYtTCEYqOUSkjNbEZ1qYew8VX52qCoEnGx/ZK7qqnbopvPK1epQc2CQRed01FE24H2EiRbxMvk4v+P55zUK6aY0MSg21crawE5PQ/Fv0fYDQcyNjQGpVEtY9SeLxkLXlwZ8myHJJ9PQrlksYe+Wldu4g05vajqEff15POVs5s/IZdtL95eKs5zIocH+QmLBbMtuGN5+OgDrVPusDhJXIfg/NzuR2z4o8PIlY+AhXiozj4+Qg6vBAWabk5NKr5pY+ASa0pWTEjolKw3WIbpLJy40gMjnfj61h8LZHyVp+84LkVmXZh+4TYD/ix2QUxvbRsfvIJEPd+zQuC7xrt50h+W5/ye987sySux/xWIAClA33fBm0gyQ5/GvmkyTHPQDavF9ZnG0xQN3De2bMnFfYnFfIwF5k/JHfTB6/4GpJimdgSSrX5n2BeeejTUPxbfjN44EUTmQQosiU/X3Z6IjGUd9P2xmreJCU8VCurW95puEED314FcO+oWRN8jBP6X1ChJ8dlQ== GSM Test SSH-Key" ];
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [ gvm-tools ];
 
