@@ -9,6 +9,9 @@ in
   # bamf service needed by plank
   services.bamf.enable = true;
 
+  # greybird/default.nix:20 has an unfree license (‘unknown’)
+  nixpkgs.config.allowUnfree = true;
+
   # install packages
   environment.systemPackages = with pkgs; [
     # select as window decoration theme
