@@ -60,5 +60,5 @@
   environment.systemPackages = with pkgs; [ gvm-tools ];
 
   # compatible NixOS release
-  system.stateVersion = "18.03";
+  system.stateVersion = "18.09";
 }
