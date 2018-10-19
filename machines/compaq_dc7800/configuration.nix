@@ -6,7 +6,9 @@
       /etc/nixos/hardware-configuration.nix
       ../../profiles/hardware.nix
       ../../profiles/desktop.nix
+      ../../profiles/personal.nix
       ../../profiles/workstation.nix
+      ../../profiles/gaming.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
@@ -36,5 +38,5 @@
   };
 
   # compatible NixOS release
-  system.stateVersion = "18.03";
+  system.stateVersion = "18.09";
 }
