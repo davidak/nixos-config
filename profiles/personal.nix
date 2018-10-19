@@ -12,8 +12,7 @@ in
 
   nixpkgs.config = {
     firefox = {
-      # currently broken https://github.com/NixOS/nixpkgs/pull/48126
-      #enableAdobeFlash = true;
+      enableAdobeFlash = true;
     };
   };
 
