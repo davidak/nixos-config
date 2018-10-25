@@ -9,6 +9,7 @@
       ../../profiles/desktop.nix
       ../../profiles/work.nix
       ../../profiles/communication.nix
+      ../../profiles/development.nix
     ];
 
   # Use the systemd-boot EFI boot loader
