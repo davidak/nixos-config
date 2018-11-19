@@ -20,6 +20,9 @@ in
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # enable flatpak support
+  services.flatpak.enable = true;
+
   # install packages
   environment.systemPackages = with pkgs; with gnome3; [
     atom
