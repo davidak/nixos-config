@@ -1,7 +1,6 @@
-{ stdenv, fetchurl, python36Packages }:
+{ stdenv, fetchurl, python35Packages }:
 
-# pathlib2 broken for python 3.5  https://github.com/NixOS/nixpkgs/issues/48475
-python36Packages.buildPythonPackage rec {
+python35Packages.buildPythonPackage rec {
   pname = "gvm-tools";
   version = "1.4.1";
   name = "${pname}-${version}";
@@ -16,7 +15,7 @@ python36Packages.buildPythonPackage rec {
 #    sha256 = "0pnq6j8f144virhri0drgf0058x6qcxfd5yrb0ynbwr8djh326yn";
 #  };
 
-  propagatedBuildInputs = with python36Packages; [ paramiko lxml defusedxml ];
+  propagatedBuildInputs = with python35Packages; [ paramiko lxml defusedxml ];
 
   # module dialog missing in nixpkgs
   doCheck = false;
