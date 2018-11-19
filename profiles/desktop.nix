@@ -23,6 +23,9 @@ in
   # enable flatpak support
   services.flatpak.enable = true;
 
+  # enable fwupd, a DBus service that allows applications to update firmware
+  services.fwupd.enable = true;
+
   # install packages
   environment.systemPackages = with pkgs; with gnome3; [
     atom
