@@ -14,6 +14,8 @@ in
     firefox = {
       enableAdobeFlash = true;
     };
+    # TODO: only allow flash
+    allowUnfree = true;
   };
 
   # container virtualization
