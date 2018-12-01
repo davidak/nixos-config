@@ -57,7 +57,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 8384 31416 19999 ];
+      allowedTCPPorts = [ 80 443 8384 31416 19999 64738 ];
       allowedUDPPorts = [];
     };
 
@@ -264,12 +264,14 @@ in
     ];
   };
 
-  services.ipfs = {
+  services.murmur = {
     enable = true;
-    swarmAddress = [ "/ip4/0.0.0.0/tcp/5000" "/ip6/::/tcp/5000" ];
-    gatewayAddress = "/ip4/127.0.0.1/tcp/8080";
-    autoMount = true;
-    enableGC = true;
+    clientCertRequired = true;
+    hostName = "172.31.1.100 2a01:04f8:0c17:5c0e::1";
+    registerName = "Knochtensprech";
+    registerHostname = "davidak.de";
+    welcometext = "Willkommen auf unserem Mumble-Server!";
+    bandwidth = 128000;
   };
 
   # Packages
