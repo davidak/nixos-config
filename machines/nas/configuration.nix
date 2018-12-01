@@ -34,7 +34,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 5000 5001 8080 8384 9000 31416 19999 22000 ];
+      allowedTCPPorts = [ 80 139 443 445 5000 5001 8080 8384 9000 9001 31416 19999 22000 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -112,6 +112,20 @@ in
     enable = true;
     dataDir = "/data/minio";
     region = "eu-central-1";
+  };
+
+  # reverse proxy for ssl encryption
+  services.caddy = {
+    enable = true;
+    email = "post@davidak.de";
+    agree = true;
+    config = ''
+    lan.davidak.de:9001 {
+      proxy / 127.0.0.1:9000 {
+        transparent
+      }
+    }
+    '';
   };
 
   users.extraUsers.davidak = {
