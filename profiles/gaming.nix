@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
 {
   # required for steam https://nixos.wiki/wiki/Steam
   hardware.opengl.driSupport32Bit = true;
@@ -12,5 +15,10 @@
     steam
     steam-run
     playonlinux
+    unstable.mumble
+
+    # games
+    assaultcube
+    crawl
   ];
 }

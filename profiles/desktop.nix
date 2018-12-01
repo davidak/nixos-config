@@ -45,6 +45,7 @@ in
     eog
     evince
     gimp
+    todo-txt-cli
     python3Packages.xkcdpass
     python3Packages.youtube-dl
     asciinema
