@@ -57,6 +57,12 @@ smbpasswd -a davidak
 passwd davidak
 ```
 
+Start Minecraft docker container:
+
+```
+docker run --name spigot -d -v /var/lib/spigot:/minecraft -p 25565:25565 -p 8123:8123 -e EULA=true -e SPIGOT_VER=1.11.2 -e MC_MINMEM=512m -e MC_MAXMEM=4g -e SPIGOT_AUTORESTART=no nimmis/spigot
+```
+
 Configure
 ---------
 

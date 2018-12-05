@@ -34,7 +34,7 @@ in
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 139 443 445 5000 5001 8080 8384 9000 9001 31416 19999 22000 ];
+      allowedTCPPorts = [ 80 139 443 445 5000 5001 8080 8384 9000 9001 31416 19999 22000 25565 ];
       allowedTCPPortRanges = [ { from = 4000; to = 4007; } ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -124,6 +124,12 @@ in
       proxy / 127.0.0.1:9000 {
         transparent
       }
+    }
+
+    minecraft.davidak.de {
+    proxy / 127.0.0.1:8123 {
+      transparent
+    }
     }
     '';
   };
