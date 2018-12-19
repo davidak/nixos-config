@@ -9,7 +9,7 @@ in
     # chat
     hexchat
     unstable.dino
-    #wire
+    signal-desktop
     # mail
     thunderbird
     gnupg
