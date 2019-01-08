@@ -24,7 +24,8 @@ in
   services.flatpak.enable = true;
 
   # enable fwupd, a DBus service that allows applications to update firmware
-  services.fwupd.enable = true;
+  # broken https://github.com/NixOS/nixpkgs/issues/48425
+  #services.fwupd.enable = true;
 
   # install packages
   environment.systemPackages = with pkgs; with gnome3; [
