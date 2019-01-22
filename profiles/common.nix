@@ -38,7 +38,7 @@ in
     zip
     unzip
     rsync
-    dit
+    micro
     tealdeer
     screen
     tree
