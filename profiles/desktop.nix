@@ -53,7 +53,7 @@ in
     remmina
     dconf-editor
     gparted
-    screenfetch
+    neofetch
     twemoji-color-font
     appimage-run
   ];
