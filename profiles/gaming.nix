@@ -20,5 +20,6 @@ in
     # games
     assaultcube
     crawl
+    multimc
   ];
 }
