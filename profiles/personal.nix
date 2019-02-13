@@ -10,11 +10,11 @@ in
   ];
 
   nixpkgs.config = {
+    allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name).name [ "flashplayer" ]);
     firefox = {
-      enableAdobeFlash = true;
+      # constantly broken https://github.com/NixOS/nixpkgs/issues/55657
+      #enableAdobeFlash = true;
     };
-    # TODO: only allow flash
-    allowUnfree = true;
   };
 
   # container virtualization
