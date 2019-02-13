@@ -6,7 +6,6 @@ in
 {
   # install packages
   environment.systemPackages = with pkgs; [
-    mediathekview
     virtmanager
   ];
 
