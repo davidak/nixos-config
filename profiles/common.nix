@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  unstable = import <nixos-unstable> {};
-in
 {
   imports =
     [
