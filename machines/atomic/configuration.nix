@@ -78,15 +78,7 @@ in
       };
     };
   };
-  #systemd.enableCgroupAccounting = true;
-  # workaround until 18.09
-  systemd.extraConfig = ''
-    DefaultCPUAccounting=yes
-    DefaultIOAccounting=yes
-    DefaultBlockIOAccounting=yes
-    DefaultMemoryAccounting=yes
-    DefaultTasksAccounting=yes
-  '';
+  systemd.enableCgroupAccounting = true;
   services.vnstat.enable = true;
 
   # MariaDB
