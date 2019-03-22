@@ -45,15 +45,16 @@ in
   # Monitoring
   services.netdata = {
     enable = true;
-    configText = ''
-      [global]
-      default port = 19999
-      bind to = *
-      # 7 days
-      history = 604800
-      error log = syslog
-      debug log = syslog
-    '';
+    config = {
+      global = {
+        "default port" = "19999";
+        "bind to" = "*";
+        # 7 days
+        "history" = "604800";
+        "error log" = "syslog";
+        "debug log" = "syslog";
+      };
+    };
   };
   services.vnstat.enable = true;
 

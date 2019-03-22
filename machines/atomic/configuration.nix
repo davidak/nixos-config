@@ -67,15 +67,16 @@ in
   # Monitoring
   services.netdata = {
     enable = true;
-    configText = ''
-      [global]
-      default port = 19999
-      bind to = *
-      # 1 day
-      history = 86400
-      error log = syslog
-      debug log = syslog
-    '';
+    config = {
+      global = {
+        "default port" = "19999";
+        "bind to" = "*";
+        # 1 day
+        "history" = "86400";
+        "error log" = "syslog";
+        "debug log" = "syslog";
+      };
+    };
   };
   #systemd.enableCgroupAccounting = true;
   # workaround until 18.09
