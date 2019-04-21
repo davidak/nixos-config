@@ -4,9 +4,6 @@
   imports =
     [
       ./common.nix
-      #../services/xfce.nix
-      #../services/gnome.nix
-      #../services/elementary.nix
       ../services/avahi-client.nix
     ];
 
@@ -19,7 +16,7 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.pantheon.enable = true;
 
-  # enabled by default
+  # disable xterm session
   services.xserver.desktopManager.xterm.enable = false;
 
   # enable audio support
@@ -34,30 +31,22 @@
   #services.fwupd.enable = true;
 
   # install packages
-  environment.systemPackages = with pkgs; with gnome3; [
+  environment.systemPackages = with pkgs; [
     atom
-    ghex
     meld
     restic
     chromium
     firefox
     keepassx-community
     libreoffice
-    gnome-mpv
-    pavucontrol
+    #gnome-mpv
     simplescreenrecorder
-    cheese
-    nautilus
-    sushi
-    eog
-    evince
     gimp
     todo-txt-cli
     python3Packages.xkcdpass
     python3Packages.youtube-dl
     asciinema
     remmina
-    dconf-editor
     gparted
     neofetch
     twemoji-color-font

@@ -15,12 +15,11 @@ in
   environment.systemPackages = with pkgs; [
     steam
     steam-run
-    playonlinux
-    unstable.mumble
+    #playonlinux
+    mumble
 
     # games
-    assaultcube
-    crawl
+    #crawl
     multimc
   ];
 }

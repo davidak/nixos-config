@@ -37,6 +37,7 @@
   # install packages
   environment.systemPackages = with pkgs; [
     electrum
+    lollypop
   ];
 
   # compatible NixOS release
