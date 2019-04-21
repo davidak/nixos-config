@@ -11,10 +11,10 @@
     # select as window decoration theme
     greybird
     # select as theme
-    elementary-gtk-theme
+    pantheon.elementary-gtk-theme
     # select as icon theme
     elementary-xfce-icon-theme
-    pantheon.pantheon-terminal
+    pantheon.elementary-terminal
     plank
   ];
 }
