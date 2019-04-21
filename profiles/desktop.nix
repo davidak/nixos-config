@@ -5,13 +5,22 @@
     [
       ./common.nix
       #../services/xfce.nix
-      ../services/gnome.nix
-      ../services/elementary.nix
+      #../services/gnome.nix
+      #../services/elementary.nix
       ../services/avahi-client.nix
     ];
 
   # boot splash instead of log messages
   boot.plymouth.enable = true;
+
+  # use elementarys pantheon desktop environment
+  services.xserver.enable = true;
+  services.xserver.useGlamor = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.pantheon.enable = true;
+
+  # enabled by default
+  services.xserver.desktopManager.xterm.enable = false;
 
   # enable audio support
   sound.enable = true;
