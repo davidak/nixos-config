@@ -1,7 +1,7 @@
 My NixOS Configurations
 =======================
 
-NixOS is an awesome GNU/Linux distribution. You can learn more on [nixos.org](https://nixos.org/nixos/about.html).
+NixOS is an innovative GNU/Linux distribution. You can learn more on [nixos.org](https://nixos.org/nixos/about.html).
 
 In this repository are the configurations of my NixOS machines.
 
@@ -20,11 +20,13 @@ This way i can test a change before committing it to the git repository. To upda
 
 For new machines i use the default configuration and extend it as needed.
 
-I use the `stable` channel to have a stable system, the `unstable` channel to get the latest version for some packages and `hardware` channel for hardware specific fixes.
+I use the `stable` channel to have a stable system, the `unstable` channel to get the latest version for some packages and `hardware` channel for hardware specific settings.
 
-	[root@nixos:~]# nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-	[root@nixos:~]# nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
-	[root@nixos:~]# nix-channel --update
+Add the unstable and hardware channel with this commands:
+
+	nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+	nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+	nix-channel --update
 
 (execute as root or with sudo)
 
@@ -54,6 +56,16 @@ Options for specific domains like `server`, `desktop` or `video-production`.
 ### services
 
 Default service configurations.
+
+## Maintainer
+
+This repository is maintained by [davidak](https://davidak.de/).
+
+## Contributing
+
+When you see ways to improve my configurations, create an [issue](https://github.com/davidak/nixos-config/issues) or [pull request](https://github.com/davidak/nixos-config/pulls).
+
+Consider sharing your configuration as well, so we can learn from each other!
 
 ## License
 
