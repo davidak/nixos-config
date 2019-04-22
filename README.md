@@ -54,3 +54,9 @@ Options for specific domains like `server`, `desktop` or `video-production`.
 ### services
 
 Default service configurations.
+
+## License
+
+Copyright (C) 2015 [davidak](https://davidak.de/)
+
+Licensed under the [MIT](LICENSE) license to be compatible with [nixpkgs](https://github.com/NixOS/nixpkgs).
