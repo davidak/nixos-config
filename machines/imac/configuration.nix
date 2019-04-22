@@ -16,13 +16,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # workaround for https://github.com/NixOS/nixpkgs/issues/36802
-  boot.kernelPackages = pkgs.linuxPackages_4_9;
   hardware.cpu.intel.updateMicrocode = true;
-  # needs https://github.com/NixOS/nixpkgs/pull/49722
-  services.xserver.videoDrivers = [ "ati_unfree" ];
-  hardware.opengl.driSupport32Bit = true;
-  nixpkgs.config.allowUnfree = true;
 
   networking = {
     hostName = "imac";
