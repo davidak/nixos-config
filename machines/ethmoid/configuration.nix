@@ -17,16 +17,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/disk/by-uuid/b13d00fa-c3b1-4519-b483-f731028724d0";
-      preLVM = true;
-      allowDiscards = true;
-    }
-  ];
-
   # no access time and continuous TRIM for SSD
+  boot.initrd.luks.devices."enc".allowDiscards = true;
   fileSystems."/".options = [ "noatime" "discard" ];
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
