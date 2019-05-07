@@ -22,6 +22,10 @@
   fileSystems."/".options = [ "noatime" "discard" ];
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
+  swapDevices = [
+    { device = "/var/swapfile"; size = 8192; }
+  ];
+
   networking = {
     hostName = "ethmoid";
     domain = "devel.greenbone.net";
