@@ -1,5 +1,5 @@
 # NixOS Desktop System
 
-- GNOME 3 desktop
+- EFI bootloader
+- Pantheon desktop
 - programs i need for work
-
