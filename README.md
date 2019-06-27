@@ -1,7 +1,7 @@
 My NixOS Configurations
 =======================
 
-NixOS is an innovative GNU/Linux distribution. You can learn more on [nixos.org](https://nixos.org/nixos/about.html).
+NixOS is an advanced GNU/Linux distribution featuring declarative configuration and atomic upgrades. You can learn more on [nixos.org](https://nixos.org/nixos/about.html).
 
 In this repository are the configurations of my NixOS machines.
 
@@ -18,7 +18,7 @@ My workflow with this code is to `rsync` it to the machine and symlink the syste
 
 This way i can test a change before committing it to the git repository. To update the configuration, just use the first and last command.
 
-For new machines i use the default configuration and extend it as needed.
+For new machines, follow the install instructions in the [manual](https://nixos.org/nixos/manual/), use the default configuration and extend it as needed.
 
 I use the `stable` channel to have a stable system, the `unstable` channel to get the latest version for some packages and `hardware` channel for hardware specific settings.
 
