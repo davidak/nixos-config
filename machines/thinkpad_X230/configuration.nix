@@ -27,6 +27,9 @@
   fileSystems."/".options = [ "noatime" "discard" ];
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
+  # intel GPU
+  services.xserver.videoDrivers = [ "intel" ];
+
   networking = {
     hostName = "X230";
     domain = "lan";
