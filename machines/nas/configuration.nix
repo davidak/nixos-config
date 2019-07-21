@@ -142,6 +142,7 @@ in
   services.syncthing = {
     enable = true;
     user = "syncthing";
+    guiAddress = "0.0.0.0:8384";
   };
 
   services.ipfs = {
