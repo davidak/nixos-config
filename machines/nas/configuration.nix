@@ -14,6 +14,9 @@ in
 
   boot.loader.grub.device = "/dev/sda";
 
+  # no access time and continuous TRIM for SSD
+  fileSystems."/".options = [ "noatime" "discard" ];
+
   networking = {
     hostName = "nas";
     domain = "lan";
