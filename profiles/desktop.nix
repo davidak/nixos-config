@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
 {
   imports =
     [
@@ -24,10 +27,9 @@
   hardware.pulseaudio.enable = true;
 
   # enable flatpak support
-  services.flatpak.enable = true;
+  #services.flatpak.enable = true;
 
   # enable fwupd, a DBus service that allows applications to update firmware
-  # broken https://github.com/NixOS/nixpkgs/issues/48425
   #services.fwupd.enable = true;
 
   # install packages
@@ -38,9 +40,11 @@
     chromium
     firefox
     keepassx-community
-    libreoffice
+    #libreoffice
+    unstable.pantheon.notes-up
     #gnome-mpv
     simplescreenrecorder
+    boinc
     gimp
     todo-txt-cli
     python3Packages.xkcdpass
