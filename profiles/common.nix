@@ -6,6 +6,7 @@
       ../services/grub.nix
       ../services/ssh.nix
       ../services/ntp.nix
+      ../services/dns.nix
       ../services/nix.nix
       ../services/localization.nix
     ];
