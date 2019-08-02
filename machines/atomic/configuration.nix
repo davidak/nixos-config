@@ -47,6 +47,8 @@ in
         { address = "2a01:04f8:0c17:5c0e::32"; prefixLength = 64; }
         # chan
         { address = "2a01:04f8:0c17:5c0e::64"; prefixLength = 64; }
+        # gutesoftware
+        { address = "2a01:04f8:0c17:5c0e::128"; prefixLength = 64; }
       ];
     };
 
@@ -123,6 +125,7 @@ in
     "meinsack"
     "personen"
     "piwik"
+    "gutesoftware"
   ] (user:  {
     isNormalUser = true;
     home = "/var/www/${user}";
