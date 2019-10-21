@@ -28,6 +28,7 @@ in
 
   # enable flatpak support
   #services.flatpak.enable = true;
+  #xdg.portal.enable = true;
 
   # enable fwupd, a DBus service that allows applications to update firmware
   #services.fwupd.enable = true;
