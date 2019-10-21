@@ -22,10 +22,6 @@ in
   # disable xterm session
   services.xserver.desktopManager.xterm.enable = false;
 
-  # enable audio support
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   # enable flatpak support
   #services.flatpak.enable = true;
   #xdg.portal.enable = true;
