@@ -1,6 +1,6 @@
-{ stdenv, python35Packages }:
+{ stdenv, python3Packages }:
 
-python35Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "python-gvm";
   version = "1.0.0";
   name = "${pname}-${version}";
@@ -10,12 +10,12 @@ python35Packages.buildPythonPackage rec {
 #    sha256 = "0vfwx93sm7r3s1svz3h22w9ns57v83yl57l8fpqj3nr83cv7kb4l";
 #  };
 
-  src = python35Packages.fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "c8062e78b91bf71ff57ee91e35ae033eb2b9bc32c29ea67453c67351926ffb89";
   };
 
-  propagatedBuildInputs = with python35Packages; [ paramiko lxml defusedxml ];
+  propagatedBuildInputs = with python3Packages; [ paramiko lxml defusedxml ];
 
   # no tests included on pypi
   doCheck = false;

@@ -42,7 +42,9 @@
   nixpkgs.overlays = [
   (self: super:
   {
-    python-gvm = super.callPackage ../../packages/python-gvm { };
+    python-gvm = super.callPackage ../../packages/python-gvm {
+      python3Packages = super.python35Packages;
+    };
     gvm-tools = super.callPackage ../../packages/gvm-tools { };
   }
   )];
