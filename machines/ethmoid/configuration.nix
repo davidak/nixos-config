@@ -23,7 +23,8 @@
   fileSystems."/boot".options = [ "noatime" "discard" ];
 
   swapDevices = [
-    { device = "/var/swapfile"; size = 8192; }
+    { device = "/var/swapfile"; size = 8192; } # 8 GB
+    { device = "/var/swapfile1"; size = 63488; } # 62 GB
   ];
 
   networking = {
