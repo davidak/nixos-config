@@ -1,6 +1,6 @@
 { stdenv, python3Packages, python-gvm }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "gvm-tools";
   version = "2.0.0";
   name = "${pname}-${version}";
