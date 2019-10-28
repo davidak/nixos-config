@@ -41,6 +41,7 @@
   nixpkgs.overlays = [
   (self: super:
   {
+    python-gvm = super.callPackage ../../packages/python-gvm { };
     gvm-tools = super.callPackage ../../packages/gvm-tools { };
   }
   )];
@@ -54,7 +55,8 @@
   };
 
   # Packages
-  environment.systemPackages = with pkgs; [ gvm-tools ];
+  environment.systemPackages = with pkgs; [ python-gvm gvm-tools lxd ];
+
 
   # compatible NixOS release
   system.stateVersion = "18.09";
