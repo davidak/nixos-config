@@ -1,23 +1,24 @@
-{ stdenv, fetchurl, python35Packages }:
+{ stdenv, python3Packages, python-gvm }:
 
-python35Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "gvm-tools";
-  version = "1.4.1";
+  version = "2.0.0";
   name = "${pname}-${version}";
 
-  src = fetchurl {
-    url = "https://github.com/greenbone/${pname}/archive/v${version}.tar.gz";
-    sha256 = "0vfwx93sm7r3s1svz3h22w9ns57v83yl57l8fpqj3nr83cv7kb4l";
-  };
-
-#  src = fetchPypi {
-#    inherit pname version;
-#    sha256 = "0pnq6j8f144virhri0drgf0058x6qcxfd5yrb0ynbwr8djh326yn";
+# use this if you need to build an unstable version
+#  src = fetchurl {
+#    url = "https://github.com/greenbone/${pname}/archive/v${version}.tar.gz";
+#    sha256 = "0vfwx93sm7r3s1svz3h22w9ns57v83yl57l8fpqj3nr83cv7kb4l";
 #  };
 
-  propagatedBuildInputs = with python35Packages; [ paramiko lxml defusedxml ];
+  src = python3Packages.fetchPypi {
+    inherit pname version;
+    sha256 = "10568c6c60f52da1781d4d11d660294c6413e3e6984ee346bf5d613b417ff126";
+  };
 
-  # module dialog missing in nixpkgs
+  propagatedBuildInputs = with python3Packages; [ setuptools python-gvm ];
+
+  # 5 tests fail
   doCheck = false;
 
   meta = with stdenv.lib; {

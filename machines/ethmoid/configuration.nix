@@ -45,7 +45,9 @@
     python-gvm = super.callPackage ../../packages/python-gvm {
       python3Packages = super.python35Packages;
     };
-    gvm-tools = super.callPackage ../../packages/gvm-tools { };
+    gvm-tools = super.callPackage ../../packages/gvm-tools {
+      python3Packages = super.python35Packages;
+    };
   }
   )];
 
@@ -58,7 +60,7 @@
   };
 
   # Packages
-  environment.systemPackages = with pkgs; [ python-gvm gvm-tools lxd ];
+  environment.systemPackages = with pkgs; [ gvm-tools lxd ];
 
   virtualisation.lxc = {
     enable = true;
