@@ -7,6 +7,7 @@ in
   imports =
     [
       ./common.nix
+      ../services/avahi-server.nix
       ../services/avahi-client.nix
     ];
 
@@ -38,7 +39,7 @@ in
     firefox
     keepassx-community
     #libreoffice
-    unstable.pantheon.notes-up
+    pantheon.notes-up
     #gnome-mpv
     simplescreenrecorder
     boinc
