@@ -22,6 +22,7 @@ in
 
     # games
     #crawl
-    multimc
+    #multimc
+    gnome3.gnome-mahjongg
   ];
 }
