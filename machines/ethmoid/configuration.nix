@@ -43,11 +43,10 @@
   (self: super:
   {
     python-gvm = super.callPackage ../../packages/python-gvm {
-      python3Packages = super.python36Packages;
+      python3Packages = super.python35Packages;
     };
     gvm-tools = super.callPackage ../../packages/gvm-tools {
-      # python35 support broken https://github.com/greenbone/gvm-tools/issues/229
-      python3Packages = super.python36Packages;
+      python3Packages = super.python35Packages;
     };
   }
   )];
