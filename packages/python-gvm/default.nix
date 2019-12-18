@@ -1,10 +1,10 @@
-{ stdenv, lib, fetchPypi, python3Packages }:
+{ stdenv, lib, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "python-gvm";
   version = "1.1.0";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "338095add45b499fb5758e8bf7c87b809c09581244578c338b2f521e60453d63";
   };

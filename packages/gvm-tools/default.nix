@@ -1,9 +1,8 @@
-{ stdenv, python3Packages, python-gvm }:
+{ stdenv, lib, python3Packages, python-gvm }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gvm-tools";
   version = "2.0.0";
-  name = "${pname}-${version}";
 
 # use this if you need to build an unstable version
 #  src = fetchurl {
@@ -18,11 +17,11 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ setuptools python-gvm ];
 
-  # 5 tests fail
+  # 6 tests fail
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    homepage = https://github.com/greenbone/gvm-tools;
+  meta = with lib; {
+    homepage = "https://github.com/greenbone/gvm-tools";
     description = "Greenbone Vulnerability Management Tools";
     license = licenses.gpl3Plus;
     longDescription = ''
