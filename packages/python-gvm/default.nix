@@ -1,13 +1,12 @@
-{ stdenv, python3Packages }:
+{ stdenv, lib, fetchPypi, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "python-gvm";
-  version = "1.0.0";
-  name = "${pname}-${version}";
+  version = "1.1.0";
 
-  src = python3Packages.fetchPypi {
+  src = fetchPypi {
     inherit pname version;
-    sha256 = "c8062e78b91bf71ff57ee91e35ae033eb2b9bc32c29ea67453c67351926ffb89";
+    sha256 = "338095add45b499fb5758e8bf7c87b809c09581244578c338b2f521e60453d63";
   };
 
   propagatedBuildInputs = with python3Packages; [ paramiko lxml defusedxml ];
@@ -15,8 +14,8 @@ python3Packages.buildPythonPackage rec {
   # no tests included on pypi
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    homepage = https://github.com/greenbone/python-gvm;
+  meta = with lib; {
+    homepage = "https://github.com/greenbone/python-gvm";
     description = "Greenbone Vulnerability Management Python Library";
     license = licenses.gpl3Plus;
     longDescription = ''
