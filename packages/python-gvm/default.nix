@@ -2,11 +2,11 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "python-gvm";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "338095add45b499fb5758e8bf7c87b809c09581244578c338b2f521e60453d63";
+    sha256 = "cc15a4fb41fd53b286cb27205e9c7df1dcfd0cfc0d0579032ff8905a78f09659";
   };
 
   propagatedBuildInputs = with python3Packages; [ paramiko lxml defusedxml ];
