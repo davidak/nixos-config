@@ -137,7 +137,8 @@ in
   # PHP-FPM
   services.phpfpm = {
     #phpPackage = pkgs.php56;
-    phpOptions = ''
+    phpOptions =
+    ''
       date.timezone = "Europe/Berlin"
       ;memory_limit = 256M
       ;max_execution_time = 60
@@ -155,60 +156,57 @@ in
     '';
     pools = {
       piwik = {
-        extraConfig = ''
-          user = piwik
-          group = users
-          listen.owner = caddy
-          listen.group = caddy
-          listen.mode = 0660
-
-          pm = dynamic
-          pm.max_children = 20
-          pm.start_servers = 2
-          pm.min_spare_servers = 1
-          pm.max_spare_servers = 3
-          pm.max_requests = 500
-          chdir = /
-
-          php_admin_value[always_populate_raw_post_data] = -1
-        '';
+        user = "piwik";
+        group = "users";
         listen = "/run/phpfpm/piwik.sock";
+        settings = {
+          "listen.owner" = "caddy";
+          "listen.group" = "caddy";
+          "listen.mode" = "0660";
+
+          "pm" = "dynamic";
+          "pm.max_children" = "10";
+          "pm.start_servers" = "2";
+          "pm.min_spare_servers" = "1";
+          "pm.max_spare_servers" = "3";
+          "pm.max_requests" = "500";
+          
+          "php_admin_value[always_populate_raw_post_data]" = "-1";
+        };
       };
     gnaclan = {
-      extraConfig = ''
-        user = gnaclan
-        group = users
-        listen.owner = caddy
-        listen.group = caddy
-        listen.mode = 0660
-
-        pm = dynamic
-        pm.max_children = 10
-        pm.start_servers = 2
-        pm.min_spare_servers = 1
-        pm.max_spare_servers = 3
-        pm.max_requests = 500
-        chdir = /
-      '';
+      user = "gnaclan";
+      group = "users";
       listen = "/run/phpfpm/gnaclan.sock";
+      settings = {
+        "listen.owner" = "caddy";
+        "listen.group" = "caddy";
+        "listen.mode" = "0660";
+
+        "pm" = "dynamic";
+        "pm.max_children" = "10";
+        "pm.start_servers" = "2";
+        "pm.min_spare_servers" = "1";
+        "pm.max_spare_servers" = "3";
+        "pm.max_requests" = "500";
+      };
     };
     chan = {
-      extraConfig = ''
-        user = chan
-        group = users
-        listen.owner = caddy
-        listen.group = caddy
-        listen.mode = 0660
-
-        pm = dynamic
-        pm.max_children = 10
-        pm.start_servers = 2
-        pm.min_spare_servers = 1
-        pm.max_spare_servers = 3
-        pm.max_requests = 500
-        chdir = /
-      '';
+      user = "chan";
+      group = "users";
       listen = "/run/phpfpm/chan.sock";
+      settings = {
+        "listen.owner" = "caddy";
+        "listen.group" = "caddy";
+        "listen.mode" = "0660";
+
+        "pm" = "dynamic";
+        "pm.max_children" = "10";
+        "pm.start_servers" = "2";
+        "pm.min_spare_servers" = "1";
+        "pm.max_spare_servers" = "3";
+        "pm.max_requests" = "500";
+      };
     };
     };
   };
