@@ -3,8 +3,8 @@
 with lib;
 let
   satzgenerator = pkgs.callPackage ../packages/satzgenerator.nix { };
-  gunicorn = pkgs.python35Packages.gunicorn;
-  python = pkgs.python35Packages.python;
+  gunicorn = pkgs.python36Packages.gunicorn;
+  python = pkgs.python36Packages.python;
   cfg = config.services.satzgenerator;
   user = "satzgenerator";
   group = "satzgenerator";
