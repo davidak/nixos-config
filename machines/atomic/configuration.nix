@@ -158,7 +158,6 @@ in
       piwik = {
         user = "piwik";
         group = "users";
-        listen = "/run/phpfpm/piwik.sock";
         settings = {
           "listen.owner" = "caddy";
           "listen.group" = "caddy";
@@ -170,14 +169,13 @@ in
           "pm.min_spare_servers" = "1";
           "pm.max_spare_servers" = "3";
           "pm.max_requests" = "500";
-          
+
           "php_admin_value[always_populate_raw_post_data]" = "-1";
         };
       };
     gnaclan = {
       user = "gnaclan";
       group = "users";
-      listen = "/run/phpfpm/gnaclan.sock";
       settings = {
         "listen.owner" = "caddy";
         "listen.group" = "caddy";
@@ -194,7 +192,6 @@ in
     chan = {
       user = "chan";
       group = "users";
-      listen = "/run/phpfpm/chan.sock";
       settings = {
         "listen.owner" = "caddy";
         "listen.group" = "caddy";
