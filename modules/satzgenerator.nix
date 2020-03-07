@@ -9,24 +9,24 @@ let
   user = "satzgenerator";
   group = "satzgenerator";
   default_home = "/var/lib/satzgenerator";
-  satzgenerator_config = pkgs.writeText "satzgenerator-config.ini" ''
-    [satzgenerator]
-    database=${cfg.database.type}
+  satzgenerator_config = pkgs.writeText "satzgenerator-config.ini"
+    (generators.toINI {} {
+      satzgenerator = { database = "${cfg.database.type}"; };
 
-    ${lib.optionalString (cfg.database.type == "sqlite") ''
-      [satzgenerator.sqlite]
-      file=${cfg.database.name}.db
-    ''}
+      "satzgenerator.sqlite" = if (cfg.database.type == "sqlite") then
+        {
+          file = "${cfg.database.name}.db";
+        } else {};
 
-    ${lib.optionalString (cfg.database.type == "mysql") ''
-      [satzgenerator.mysql]
-      user=${cfg.database.user}
-      password=${cfg.database.password}
-      database=${cfg.database.name}
-      host=${cfg.database.host}
-      port=${toString cfg.database.port}
-    ''}
-  '';
+      "satzgenerator.mysql" = if (cfg.database.type == "mysql") then
+        {
+          user = "${cfg.database.user}";
+          password = "${cfg.database.password}";
+          database = "${cfg.database.name}";
+          host = "${cfg.database.host}";
+          port = "${toString cfg.database.port}";
+        } else {};
+    });
 in
 {
   options.services.satzgenerator = {
