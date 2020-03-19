@@ -6,7 +6,14 @@ in
 {
   # install packages
   environment.systemPackages = with pkgs; [
+    zoom-us
   ];
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "zoom-us"
+    ];
+  };
 
   # container virtualization
   virtualisation.docker.enable = true;
