@@ -73,8 +73,9 @@ in
       global = {
         "default port" = "19999";
         "bind to" = "*";
-        # 1 day
-        "history" = "86400";
+        "memory mode" = "dbengine";
+        "page cache size" = "64";
+        "dbengine disk space" = "512";
         "error log" = "syslog";
         "debug log" = "syslog";
       };
