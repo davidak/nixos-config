@@ -7,6 +7,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; [
     zoom-us
+    thunderbird
   ];
 
   nixpkgs.config = {
