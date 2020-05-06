@@ -10,6 +10,7 @@ in
       ../../profiles/hardware.nix
       ../../profiles/server.nix
       ../../services/avahi-server.nix
+      ../../services/boinc.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
@@ -151,11 +152,6 @@ in
     gatewayAddress = "/ip4/0.0.0.0/tcp/8080";
     autoMount = true;
     enableGC = true;
-  };
-
-  services.boinc = {
-    enable = true;
-    allowRemoteGuiRpc = true;
   };
 
   # Packages

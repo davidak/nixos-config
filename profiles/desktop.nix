@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   unstable = import <nixos-unstable> {};
+  inherit (lib) optionals;
 in
 {
   imports =
@@ -42,7 +43,6 @@ in
     pantheon.notes-up
     #gnome-mpv
     simplescreenrecorder
-    boinc
     gimp
     todo-txt-cli
     python3Packages.xkcdpass
@@ -53,5 +53,5 @@ in
     neofetch
     twemoji-color-font
     appimage-run
-  ];
+  ] ++ optionals config.services.boinc.enable [ boinc ];
 }

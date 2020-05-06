@@ -7,8 +7,9 @@
       ../../profiles/hardware.nix
       ../../profiles/desktop.nix
       ../../profiles/personal.nix
-      #../../profiles/workstation.nix
+      ../../profiles/workstation.nix
       ../../profiles/gaming.nix
+      ../../services/boinc.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
