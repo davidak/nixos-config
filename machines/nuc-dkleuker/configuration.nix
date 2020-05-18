@@ -35,6 +35,9 @@
     };
   };
 
+  # TODO: move
+  services.syncthing.dataDir = "/home/davidak/.syncthing";
+
   # compatible NixOS release
   system.stateVersion = "19.03";
 }

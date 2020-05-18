@@ -37,6 +37,9 @@
     firewall.enable = false;
   };
 
+  # TODO: move
+  services.syncthing.dataDir = "/home/davidak/.syncthing";
+
   # install packages
   environment.systemPackages = with pkgs; [
     electrum

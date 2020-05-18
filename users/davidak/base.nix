@@ -14,7 +14,7 @@
   services.syncthing = {
     enable = true;
     user = "davidak";
-    dataDir = "/home/davidak/.syncthing";
+    #dataDir = "/home/davidak/.syncthing";
     openDefaultPorts = true;
   };
 
@@ -23,7 +23,7 @@
 
   home-manager.users.davidak = { pkgs, ... }: {
     #home.packages = with pkgs; [ httpie ];
-    
+
     programs.bash = {
       enable = true;
       historyControl = [ "ignoredups" "ignorespace" ];
