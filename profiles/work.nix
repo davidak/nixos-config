@@ -12,7 +12,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; [
     zoom-us
-    mattermost
+    mattermost-desktop
     thunderbird
   ];
 
