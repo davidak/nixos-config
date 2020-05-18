@@ -37,8 +37,12 @@
     firewall.enable = false;
   };
 
-  # TODO: move
-  services.syncthing.dataDir = "/home/davidak/.syncthing";
+  services.syncthing = {
+    configDir = "/var/lib/syncthing/.config/syncthing";
+    declarative = {
+      folders = { "Sync" = { path = "/home/davidak/Sync"; devices = [ "nas" ]; }; };
+    };
+  };
 
   # install packages
   environment.systemPackages = with pkgs; [
