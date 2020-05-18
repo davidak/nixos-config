@@ -16,6 +16,10 @@
     user = "davidak";
     #dataDir = "/home/davidak/.syncthing";
     openDefaultPorts = true;
+    declarative = {
+      devices = { "nas" = { id = "5WUEWIO-FHLQ6BR-HJPVQBU-7ITVSF2-EB4WZ63-3UYUW6F-FNCK5EC-TWIRWQJ"; introducer = true; }; };
+      folders = { "info" = { path = "/home/davidak/info"; devices = [ "nas" ]; }; };
+    };
   };
 
   home-manager.useUserPackages = true;
