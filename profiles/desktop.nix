@@ -8,8 +8,11 @@ in
   imports =
     [
       ./common.nix
+      # TODO: simplify
+      #../services/avahi.nix
       ../services/avahi-server.nix
       ../services/avahi-client.nix
+      ../users/davidak/base.nix
     ];
 
   # boot splash instead of log messages

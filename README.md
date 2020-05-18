@@ -18,14 +18,15 @@ My workflow with this code is to `rsync` it to the machine and symlink the syste
 
 This way i can test a change before committing it to the git repository. To update the configuration, just use the first and last command.
 
-For new machines, follow the install instructions in the [manual](https://nixos.org/nixos/manual/), use the default configuration and extend it as needed.
+For new machines, follow the install instructions in the [manual](https://nixos.org/nixos/manual/) and extend it with inspirations from the machines here.
 
-I use the `stable` channel to have a stable system, the `unstable` channel to get the latest version for some packages and `hardware` channel for hardware specific settings.
+I use the latest stable release `nixos` channel to have a reliable system and the `nixos-unstable` channel to get the latest version for some packages. I also use `nixos-hardware` channel for hardware specific settings and `home-manager` for user specific configuration.
 
-Add the unstable and hardware channel with this commands:
+Add the channels with this commands:
 
 	nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
 	nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+	nix-channel --add https://github.com/rycee/home-manager/archive/release-20.03.tar.gz home-manager
 	nix-channel --update
 
 (execute as root or with sudo)
@@ -39,15 +40,11 @@ References:
 
 ### machines
 
-Here are the `configuration.nix` files for my machines. See the `README` for detailed description.
+Here are the `configuration.nix` files for my machines. See their README for detailed description.
 
-### modules
+### users
 
-My personal NixOS modules.
-
-### packages
-
-My personal Nix packages.
+User specific configuration including dotfiles using [Home Manager](https://github.com/rycee/home-manager).
 
 ### profiles
 
@@ -56,6 +53,14 @@ Options for specific domains like `server`, `desktop` or `video-production`.
 ### services
 
 Default service configurations.
+
+### modules
+
+My personal NixOS modules.
+
+### packages
+
+My personal Nix packages.
 
 ## Maintainer
 

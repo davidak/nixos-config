@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }:
 
-let
-  pubkey = import ../services/pubkey.nix;
-in
 {
+  imports =
+  [
+    ../users/davidak/personal.nix
+  ];
+  
   # install packages
   environment.systemPackages = with pkgs; [
     virtmanager
@@ -24,18 +26,5 @@ in
   virtualisation.libvirtd = {
     enable = true;
     qemuPackage = pkgs.qemu_kvm;
-  };
-
-  users.extraUsers.davidak = {
-    isNormalUser = true;
-    extraGroups = lib.mkDefault [ "wheel" "networkmanager" "audio" "video" "docker" "libvirtd" ];
-    openssh.authorizedKeys.keys = lib.mkDefault [ pubkey.davidak ];
-  };
-
-  services.syncthing = {
-    enable = true;
-    user = "davidak";
-    dataDir = "/home/davidak/.syncthing";
-    openDefaultPorts = true;
   };
 }
