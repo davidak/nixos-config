@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  email = "david.kleuker@greenbone.net"
+  email = "david.kleuker@greenbone.net";
 in
 {
   imports =
