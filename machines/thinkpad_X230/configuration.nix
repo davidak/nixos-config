@@ -12,6 +12,7 @@
       ../../profiles/communication.nix
       ../../profiles/video-production.nix
       ../../profiles/gaming.nix
+      ../../services/boinc.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
