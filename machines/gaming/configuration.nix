@@ -5,6 +5,8 @@
     [
       /etc/nixos/hardware-configuration.nix
       ../../profiles/hardware.nix
+      ../../modules/amd
+      ../../modules/nvidia
       ../../profiles/desktop.nix
       ../../profiles/personal.nix
       ../../profiles/workstation.nix
@@ -18,8 +20,11 @@
   fileSystems."/".options = [ "noatime" "discard" ];
 
   hardware.cpu.intel.updateMicrocode = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  nixpkgs.config.allowUnfree = true;
+  # use latest kernel to have best performance
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  hardware.gpu.amd.enable = true;
+  hardware.gpu.nvidia.enable = false;
 
   networking = {
     hostName = "gaming";
@@ -27,9 +32,6 @@
 
     firewall.enable = false;
   };
-
-  # TODO: move
-  services.syncthing.dataDir = "/home/davidak/.syncthing";
 
   # compatible NixOS release
   system.stateVersion = "19.03";
