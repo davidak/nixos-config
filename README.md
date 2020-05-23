@@ -11,7 +11,7 @@ You can find the configurations from other people in the [nixos.wiki](https://ni
 
 My workflow with this code is to `rsync` it to the machine and symlink the system configuration.
 
-	[davidak@X230:~]$ rsync -ah --delete --progress /home/davidak/code/nixos root@10.0.2.48:
+	[davidak@X230:~]$ rsync -ah --delete --progress /home/davidak/code/nixos-config/ root@nas.lan:nixos/
 	[root@nixos:~]# rm /etc/nixos/configuration.nix
 	[root@nixos:~]# ln -s /root/nixos/machines/compaq_dc7800/configuration.nix /etc/nixos/configuration.nix
 	[root@nixos:~]# nixos-rebuild switch
