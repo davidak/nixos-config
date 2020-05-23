@@ -34,6 +34,8 @@ in
   # enable fwupd, a DBus service that allows applications to update firmware
   #services.fwupd.enable = true;
 
+  programs.ssh.startAgent = true;
+
   # install packages
   environment.systemPackages = with pkgs; [
     atom
