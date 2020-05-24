@@ -36,6 +36,40 @@ in
 
   programs.ssh.startAgent = true;
 
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "cbnipbdpgcncaghphljjicfgmkonflee" # Axel Springer Blocker
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "hjdoplcnndgiblooccencgcggcoihigg" # Terms of Service; Didn’t Read
+      "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere
+      "klbibkeccnjlkjkiokjodocebajanakg" # The Great Suspender
+      "fngmhnnpilhplaeedifhccceomclgfbg" # EditThisCookie
+      "oboonakemofpalcgghocfoadofidjkkk" # KeePassXC-Browser
+      "fploionmjgeclbkemipmkogoaohcdbig" # Page load time
+      "feeoiklfggbaibpdhkkngbpkppdmcjal" # Tab Counter
+      "kglhbbefdnlheedjiejgomgmfplipfeb" # Jitsi Meetings
+    ];
+    extraOpts = {
+      "BrowserSignin" = 0;
+      "SyncDisabled" = true;
+      "PasswordManagerEnabled" = false;
+      "AutofillAddressEnabled" = true;
+      "AutofillCreditCardEnabled" = false;
+      "BuiltInDnsClientEnabled" = false;
+      "MetricsReportingEnabled" = true;
+      "SearchSuggestEnabled" = false;
+      "AlternateErrorPagesEnabled" = false;
+      "UrlKeyedAnonymizedDataCollectionEnabled" = false;
+      "SpellcheckEnabled" = true;
+      "SpellcheckLanguage" = [
+                               "de"
+                               "en-US"
+                             ];
+      "CloudPrintSubmitEnabled" = false;
+    };
+  };
+
   # install packages
   environment.systemPackages = with pkgs; [
     atom
