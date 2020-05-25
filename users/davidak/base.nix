@@ -8,7 +8,7 @@
   users.extraUsers.davidak = {
     isNormalUser = true;
     # TODO: optional if docker.enable ++ docker
-    extraGroups = lib.mkDefault [ "wheel" "networkmanager" "audio" "video" "docker" "libvirtd" ];
+    extraGroups = lib.mkDefault [ "wheel" "networkmanager" "audio" "video" "docker" "libvirtd" "plugdev" ];
   };
 
   services.syncthing = {

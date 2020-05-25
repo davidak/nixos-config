@@ -8,6 +8,7 @@ in
   imports =
     [
       ./common.nix
+      ../modules/zsa
       # TODO: simplify
       #../services/avahi.nix
       ../services/avahi-server.nix
@@ -33,6 +34,8 @@ in
 
   # enable fwupd, a DBus service that allows applications to update firmware
   #services.fwupd.enable = true;
+
+  hardware.keyboard.zsa.enable = true;
 
   programs.ssh.startAgent = true;
 
