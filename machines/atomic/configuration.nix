@@ -2,7 +2,7 @@
 
 let
   pubkey = import ../../services/pubkey.nix;
-  secrets = import /root/secrets.nix;
+  secrets = import ./secrets.nix;
 in
 {
   imports =
@@ -227,6 +227,18 @@ in
       }
     }
 
+    ci.gutesoftware.de {
+      proxy / 127.0.0.1:8080 {
+        transparent
+      }
+    }
+
+    s3.gutesoftware.de {
+      proxy / 127.0.0.1:9000 {
+        transparent
+      }
+    }
+
     :80 {
       root /var/www/default/web
       header / X-Backend-Server {hostname}
@@ -263,6 +275,53 @@ in
     registerHostname = "davidak.de";
     welcometext = "Willkommen auf unserem Mumble-Server!";
     bandwidth = 128000;
+  };
+
+  docker-containers = {
+    drone-server = {
+      image = "drone/drone:1";
+      ports = [ "127.0.0.1:8080:80" ];
+      volumes = [ "/var/lib/drone:/data" ];
+      environment = {
+        DRONE_SERVER_HOST = "ci.gutesoftware.de";
+        DRONE_SERVER_PROTO = "https";
+        DRONE_AGENTS_ENABLED = "true";
+        DRONE_GITEA_SERVER = "https://codeberg.org";
+        DRONE_GITEA_CLIENT_ID = secrets.DRONE_GITEA_CLIENT_ID;
+        DRONE_GITEA_CLIENT_SECRET = secrets.DRONE_GITEA_CLIENT_SECRET;
+        DRONE_RPC_SECRET = secrets.DRONE_RPC_SECRET;
+        DRONE_USER_CREATE = "username:davidak,admin:true";
+        DRONE_S3_ENDPOINT = "https://s3.gutesoftware.de";
+        DRONE_S3_PATH_STYLE = "true";
+        DRONE_S3_BUCKET = "drone";
+        AWS_ACCESS_KEY_ID = secrets.S3_ACCESS_KEY_ID;
+        AWS_SECRET_ACCESS_KEY = secrets.S3_SECRET_ACCESS_KEY;
+        AWS_DEFAULT_REGION = config.services.minio.region;
+        AWS_REGION = config.services.minio.region;
+      };
+    };
+    drone-agent = {
+      image = "drone/agent:1";
+      ports = [ "3000" ];
+      volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ];
+      environment = {
+        DRONE_RUNNER_NAME = config.networking.hostName;
+        DRONE_RUNNER_CAPACITY = "2";
+        DRONE_RPC_HOST = "ci.gutesoftware.de";
+        DRONE_RPC_SECRET = secrets.DRONE_RPC_SECRET;
+        DRONE_RPC_PROTO = "https";
+      };
+      dependsOn = [ "drone-server" ];
+    };
+  };
+
+  # S3 compatible Object Storage
+  services.minio = {
+    enable = true;
+    listenAddress = "127.0.0.1:9000";
+    accessKey = secrets.S3_ACCESS_KEY_ID;
+    secretKey = secrets.S3_SECRET_ACCESS_KEY;
+    region = "eu-central-1";
   };
 
   # Packages
